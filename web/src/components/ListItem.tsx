@@ -1,8 +1,8 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 interface ListItemProps {
-  text: string;
-  url: string;
+  text: string
+  url: string
 }
 
 export function ListItem({ text, url }: ListItemProps) {
@@ -12,5 +12,5 @@ export function ListItem({ text, url }: ListItemProps) {
         <a className="font-bold text-zinc-100">{text}</a>
       </Link>
     </li>
-  );
+  )
 }

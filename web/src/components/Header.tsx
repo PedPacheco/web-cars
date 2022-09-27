@@ -1,6 +1,7 @@
-import { List } from "phosphor-react";
-import Link from "next/link";
-import { ListItem } from "./ListItem";
+import { List } from 'phosphor-react'
+import Link from 'next/link'
+import { ListItem } from './ListItem'
+import Image from 'next/image'
 
 export function Header() {
   return (
@@ -8,7 +9,7 @@ export function Header() {
       <nav className="flex justify-between items-center p-3 flex-wrap">
         <Link href="/" className="p-2 mr-4 inline-flex items-center">
           <a>
-            <img
+            <Image
               src="https://tonyveiculos.com.br/img/logo.png"
               alt="Logotipo do site"
               className="w-[124px]"
@@ -29,5 +30,5 @@ export function Header() {
         </ul>
       </nav>
     </header>
-  );
+  )
 }
