@@ -1,11 +1,14 @@
 import { Header } from "~/components/Header";
+import { HomeSearchBox } from "~/components/HomeSearchBox";
 
 export default function Home() {
   return (
     <>
       <Header />
 
-      <div>Hello World</div>
+      <main>
+        <HomeSearchBox />
+      </main>
     </>
   );
 }
