@@ -1,6 +1,6 @@
 export function HomeSearchBox() {
   return (
-    <section className="my-5 py-20">
+    <section className="my-5 py-16">
       <form className="w-full px-4 md:max-w-3xl lg:max-w-5xl mx-auto">
         <div className="flex flex-col items-center justify-center">
           <div className="max-w-[80%] w-full px-4 text-center lg:max-w-full">

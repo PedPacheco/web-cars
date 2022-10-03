@@ -12,7 +12,7 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 px-4 min-h-[76px] bg-[#8257E5]">
+    <header className="sticky z-10 w-full top-0 px-4 min-h-[76px] bg-[#8257E5]">
       <nav className="flex justify-between items-center p-3 flex-wrap">
         <Link href="/" className="p-2 mr-4 inline-flex items-center">
           <a>
@@ -41,7 +41,7 @@ export function Header() {
           <ListItem url="/" text="Estoque" />
           <ListItem url="/" text="Venda seu carro" />
           <ListItem url="/" text="Contato" />
-          <ListItem url="/" text="Login" />
+          <ListItem url="/login" text="Login" />
         </ul>
       </nav>
     </header>
