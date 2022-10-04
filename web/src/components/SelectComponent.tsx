@@ -1,15 +1,15 @@
 import * as Select from '@radix-ui/react-select'
-
 import { CaretDown } from 'phosphor-react'
 
 interface SelectProps {
   text: string;
   mdMaxWidth: string;
+  maxWidth: string;
 }
 
-export function SelectComponent({ text, mdMaxWidth }: SelectProps) {
+export function SelectComponent({ text, mdMaxWidth, maxWidth }: SelectProps) {
   return (
-    <div className={`max-w-[80%] w-full px-4 ${mdMaxWidth}`}>
+    <div className={`${maxWidth} w-full px-4 ${mdMaxWidth}`}>
       <label className="inline-block mb-2">{text}</label>
       <Select.Root>
         <Select.Trigger

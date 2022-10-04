@@ -1,12 +1,12 @@
 import * as Separator from '@radix-ui/react-separator'
 import Link from 'next/link'
-import { FacebookLogo, GoogleLogo, X } from 'phosphor-react'
+import { AppleLogo, FacebookLogo, GoogleLogo, X } from 'phosphor-react'
 import { Button } from '~/components/Button'
 import { Header } from '~/components/Header'
 import { Input } from '~/components/Input'
 import { SocialNetworkButton } from '~/components/SocialNetworkButton'
 
-export default function Login() {
+export default function Register() {
   return (
     <>
       <Header />
@@ -18,7 +18,7 @@ export default function Login() {
             <div className="flex h-full flex-col lg:flex-row">
               <section className="w-full">
                 <h1 className="mt-5 mb-6 font-medium text-2xl text-zinc-100 lg:mb-5">
-                  Entre com suas redes sociais
+                  Cadastre-se com suas redes sociais
                 </h1>
                 <div>
                   <SocialNetworkButton
@@ -39,7 +39,7 @@ export default function Login() {
                   />
 
                   <SocialNetworkButton
-                    logo={<GoogleLogo size={24} className="mr-5 text-white" />}
+                    logo={<AppleLogo size={24} className="mr-5 text-white" />}
                     text="Entrar com Apple"
                     bgColor="bg-neutral-900"
                     bgColorHover="hover:bg-neutral-700"
@@ -54,20 +54,26 @@ export default function Login() {
               </Separator.Root>
               <section className="w-full">
                 <h1 className="mt-5 mb-6 font-medium text-2xl text-zinc-100 lg:mb-5">
-                  Digite sua senha e e-mail
+                  Crie uma conta com seu E-mail
                 </h1>
                 <form>
+                  <Input text="Nome completo" />
                   <Input text="E-mail" />
                   <Input text="Senha" />
-                  <Button type="submit" text="Entrar" lgWidth="lg:w-auto" />
+                  <Input text="Confirmar senha" />
+                  <Button
+                    type="submit"
+                    text="Criar conta"
+                    lgWidth="lg:w-auto"
+                  />
                 </form>
               </section>
             </div>
             <p className="text-center text-zinc-100 mt-8">
-              Não tem uma conta?
-              <Link href="/register">
+              Já tem uma conta?
+              <Link href="/login">
                 <a className="ml-1 font-bold text-brand-primary hover:text-brand-hover transition-colors">
-                  Crie a sua
+                  Entrar
                 </a>
               </Link>
             </p>

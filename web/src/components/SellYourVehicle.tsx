@@ -13,13 +13,30 @@ export function SellYourVehicle() {
         </div>
 
         <div className="flex flex-wrap justify-center pb-4">
-          <SelectComponent text="Marca" mdMaxWidth="md:max-w-[50%]" />
-          <SelectComponent text="Modelo" mdMaxWidth="md:max-w-[50%]" />
-          <SelectComponent text="Ano" mdMaxWidth="md:max-w-[33.333333%]" />
-          <SelectComponent text="Versão" mdMaxWidth="md:max-w-[33.333333%]" />
+          <SelectComponent
+            text="Marca"
+            mdMaxWidth="md:max-w-[50%]"
+            maxWidth="md:max-w-[80%]"
+          />
+          <SelectComponent
+            text="Modelo"
+            mdMaxWidth="md:max-w-[50%]"
+            maxWidth="md:max-w-[80%]"
+          />
+          <SelectComponent
+            text="Ano"
+            mdMaxWidth="md:max-w-[33.333333%]"
+            maxWidth="md:max-w-[80%]"
+          />
+          <SelectComponent
+            text="Versão"
+            mdMaxWidth="md:max-w-[33.333333%]"
+            maxWidth="md:max-w-[80%]"
+          />
           <SelectComponent
             text="KM rodados"
             mdMaxWidth="md:max-w-[33.333333%]"
+            maxWidth="md:max-w-[80%]"
           />
         </div>
 

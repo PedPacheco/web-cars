@@ -5,7 +5,12 @@ module.exports = {
     fontFamily: {
       sans: ['Inter', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      colors: {
+        'brand-primary': '#8257E5',
+        'brand-hover': '#996DFF',
+      },
+    },
   },
   plugins: [],
 }

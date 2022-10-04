@@ -1,8 +1,8 @@
-import { List } from 'phosphor-react'
-import Link from 'next/link'
-import { ListItem } from './ListItem'
 import Image from 'next/image'
+import Link from 'next/link'
+import { List } from 'phosphor-react'
 import { useState } from 'react'
+import { ListItem } from './ListItem'
 
 export function Header() {
   const [open, setOpen] = useState(false)
