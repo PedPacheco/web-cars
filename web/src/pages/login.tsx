@@ -1,12 +1,14 @@
 import * as Separator from '@radix-ui/react-separator'
 import Link from 'next/link'
-import { FacebookLogo, GoogleLogo, X } from 'phosphor-react'
+import { AppleLogo, FacebookLogo, GoogleLogo, X } from 'phosphor-react'
 import { Button } from '~/components/Button'
 import { Header } from '~/components/Header'
 import { Input } from '~/components/Input'
-import { SocialNetworkButton } from '~/components/SocialNetworkButton'
+import UseAuth from '~/hooks/useAuth'
 
 export default function Login() {
+  const { signInWithGoogle } = UseAuth()
+
   return (
     <>
       <Header />
@@ -21,30 +23,29 @@ export default function Login() {
                   Entre com suas redes sociais
                 </h1>
                 <div>
-                  <SocialNetworkButton
-                    logo={<FacebookLogo size={24} className="mr-5" />}
-                    text="Entrar com Facebook"
-                    bgColor="bg-[#3b5998]"
-                    bgColorHover="hover:bg-[#8b9dc3]"
-                  />
+                  <button className="w-full h-10 rounded-lg text-xs font-medium p-2 flex items-center bg-[#3b5998] hover:bg-[#8b9dc3] transition-colors justify-start mb-4">
+                    <FacebookLogo size={24} className="mr-5" />
+                    <p className="mr-15 font-medium flex-grow">
+                      Entrar com Facebook
+                    </p>
+                  </button>
 
-                  <SocialNetworkButton
-                    logo={
-                      <GoogleLogo size={24} className="mr-5 text-zinc-600" />
-                    }
-                    text="Entrar com Google"
-                    bgColor="bg-white"
-                    bgColorHover="hover:bg-slate-200"
-                    textColor="text-zinc-600"
-                  />
+                  <button
+                    className="w-full h-10 rounded-lg text-xs font-medium p-2 flex items-center bg-white hover:bg-slate-200 transition-colors justify-start mb-4"
+                    onClick={signInWithGoogle}
+                  >
+                    <GoogleLogo size={24} className="mr-5 text-zinc-600" />
+                    <p className="mr-15 font-medium flex-grow text-zinc-600">
+                      Entrar com Google
+                    </p>
+                  </button>
 
-                  <SocialNetworkButton
-                    logo={<GoogleLogo size={24} className="mr-5 text-white" />}
-                    text="Entrar com Apple"
-                    bgColor="bg-neutral-900"
-                    bgColorHover="hover:bg-neutral-700"
-                    textColor="text-white"
-                  />
+                  <button className="w-full h-10 rounded-lg text-xs font-medium p-2 flex items-center bg-neutral-900 hover:bg-neutral-700 transition-colors justify-start mb-4">
+                    <AppleLogo size={24} className="mr-5 text-white" />
+                    <p className="mr-15 font-medium flex-growtext-white">
+                      Entrar com Apple
+                    </p>
+                  </button>
                 </div>
               </section>
               <Separator.Root className="relative my-4 border border-solid border-zinc-700 lg:mx-8">
