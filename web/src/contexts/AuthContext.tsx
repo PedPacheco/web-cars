@@ -1,24 +1,28 @@
 import {
+  FacebookAuthProvider,
   getAuth,
   GoogleAuthProvider,
   signInWithPopup
 } from 'firebase/auth'
 import Router from 'next/router'
-import { createContext, useState } from 'react'
+import { setCookie } from 'nookies'
+import { createContext, useEffect, useState } from 'react'
 import firebase from '../lib/firebase'
 
 interface User {
   id: string
-  name: string 
-  avatar: string 
+  name: string | null
+  avatar: any
   userEmail: string | null
-  phone: string | null
+  phone: string | null,
 }
 
 interface AuthContextData {
   user: User | undefined;
   loading: boolean;
+  isAuthenticated: boolean
   signInWithGoogle: () => Promise<void>;
+  signInWithFacebook: () => Promise<void>;
   signout: () => Promise<void>;
 }
 
@@ -29,8 +33,34 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User>()
+  const [user, setUser] = useState<User | undefined>()
   const [loading, setLoading] = useState<boolean>(true)
+
+  const isAuthenticated = !!user
+
+  useEffect(() => {
+    const auth = getAuth()
+    return auth.onIdTokenChanged(async (user) => {
+      if (!user) {
+        setUser(undefined);
+        setCookie(undefined, 'token', '',{
+          maxAge: 30 * 24 * 60 * 60,
+        });
+      } else {
+        const token = await user.getIdToken();
+        setUser({
+          id: user.uid,
+          userEmail: user.email,
+          name: user.displayName,
+          phone: user.phoneNumber,
+          avatar: user.photoURL,
+        });
+        setCookie(undefined, 'token', token,{
+          maxAge: 30 * 24 * 60 * 60,
+        });
+      }
+    });
+  }, []);
 
   async function signInWithGoogle() {
     try {
@@ -38,9 +68,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const auth = getAuth()
       const provider = new GoogleAuthProvider()
       const result =  await signInWithPopup(auth, provider)
-      
+
       if(result.user) {
         const {email, displayName, phoneNumber, photoURL, uid} = result.user
+        const token = await result.user.getIdToken()
       
         if(!displayName || !photoURL) {
           throw new Error("missing information from Google account")
@@ -51,14 +82,62 @@ export function AuthProvider({ children }: AuthProviderProps) {
           userEmail: email,
           name: displayName,
           phone: phoneNumber,
-          avatar: photoURL 
+          avatar: photoURL,
         })
-  
+
+        setCookie(undefined, 'token', token, {
+          maxAge: 30 * 24 * 60 * 60,
+        });
       }
 
+      if (!result.user) {
+        setUser(undefined);
+        setCookie(undefined, 'token', '', {
+          maxAge: 30 * 24 * 60 * 60,
+        });
+      }
     } finally {
       setLoading(false)
-    }
+    }   
+  }
+
+  async function signInWithFacebook() {
+    try {
+      setLoading(true)
+      const auth = getAuth()
+      const provider = new FacebookAuthProvider()
+      const result =  await signInWithPopup(auth, provider)
+
+      if(result.user) {
+        const {email, displayName, phoneNumber, photoURL, uid} = result.user
+        const token = await result.user.getIdToken()
+      
+        if(!displayName || !photoURL) {
+          throw new Error("missing information from Google account")
+        }
+
+        setUser({
+          id: uid,
+          userEmail: email,
+          name: displayName,
+          phone: phoneNumber,
+          avatar: photoURL,
+        })
+
+        setCookie(undefined, 'token', token, {
+          maxAge: 30 * 24 * 60 * 60,
+        });
+      }
+
+      if (!result.user) {
+        setUser(undefined);
+        setCookie(undefined, 'token', '', {
+          maxAge: 30 * 24 * 60 * 60,
+        });
+      }
+    } finally {
+      setLoading(false)
+    }   
   }
 
   async function signout() {
@@ -77,12 +156,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signout }}>
+    <AuthContext.Provider value={{ user, loading, isAuthenticated, signInWithGoogle, signInWithFacebook, signout }}>
       {children}
     </AuthContext.Provider>
   )
 }
 
 export const AuthConsumer = AuthContext.Consumer
-
 export default AuthContext
