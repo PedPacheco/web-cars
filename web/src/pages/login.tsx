@@ -13,7 +13,7 @@ export default function Login() {
   const router = useRouter()
 
   useEffect(() => {
-    if (isAuthenticated === false) {
+    if (isAuthenticated) {
       router.push('/')
       return
     }
@@ -23,7 +23,7 @@ export default function Login() {
     <>
       <Header />
 
-      <div className=" flex flex-col items-center lg:mt-40  lg:h-[480px]">
+      <div className=" flex flex-col items-center lg:mt-40 lg:h-[480px]">
         <div className="bg-zinc-800 relative w-full py-8 px-5 lg:w-[634px] lg:rounded-lg lg:pt-16 lg:pb-9 lg:px-8">
           <X size={24} className="absolute top-5 right-5 cursor-pointer" />
           <div className="flex flex-col h-full">
@@ -63,7 +63,7 @@ export default function Login() {
                       weight="bold"
                       className="mr-5 text-white"
                     />
-                    <p className="mr-15 font-medium flex-growtext-white">
+                    <p className="mr-15 font-medium flex-grow text-white">
                       Entrar com Apple
                     </p>
                   </button>

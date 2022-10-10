@@ -1,23 +1,28 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Car, List, PencilSimple, SignOut, SoccerBall } from 'phosphor-react'
+import {
+  Car,
+  House,
+  PencilSimple,
+  Phone,
+  SignIn,
+  SignOut,
+  SoccerBall,
+} from 'phosphor-react'
 import { useState } from 'react'
 import UseAuth from '~/hooks/useAuth'
+// import { getWindowDimensions } from '~/utils/getWindowDimensions'
 import { ListItem } from './ListItem'
 
 export function Header() {
+  const { user, signout } = UseAuth()
   const [open, setOpen] = useState(false)
-  const { user } = UseAuth()
-
-  function showOptions() {
-    setOpen(!open)
-  }
 
   return (
-    <header className="sticky z-10 w-full top-0 px-4 min-h-[76px] bg-brand-primary">
-      <nav className="flex justify-between items-center p-3 flex-wrap">
-        <Link href="/" className="p-2 mr-4 inline-flex items-center">
-          <a>
+    <header className="sticky z-10 w-full top-0 px-4 min-h-[76px] bg-brand-primary shadow-md">
+      <nav className="flex justify-between items-center p-3 ">
+        <Link href="/">
+          <a className="p-2 mr-4 inline-flex items-center">
             <Image
               src="https://tonyveiculos.com.br/img/logo.png"
               alt="Logotipo do site"
@@ -27,69 +32,85 @@ export function Header() {
           </a>
         </Link>
 
-        <button
-          className="text-white p-3 rounded lg:hidden ml-auto"
-          onClick={showOptions}
-        >
-          <List size={24} />
-        </button>
-
         <ul
-          className={`${
-            open ? 'hidden' : 'flex'
-          } flex-col items-center w-full lg:w-[680px] lg:flex-row pl-3 lg:flex`}
+          className={`flex items-center justify-between w-[70%] md:w-[500px] md:flex-row pl-3 `}
         >
-          <ListItem url="/" text="Home" />
-          <ListItem url="/" text="Estoque" />
-          <ListItem url="/sell-my-car" text="Vender meu carro" />
-          <ListItem url="/contato" text="Contato" />
+          <ListItem
+            url="/"
+            text="Home"
+            icon={<House size={24} weight="bold" />}
+          />
+
+          <ListItem
+            url="/estoque"
+            text="Carros à venda"
+            icon={<Car size={24} weight="bold" />}
+          />
+
+          <ListItem
+            url="/contato"
+            text="Contato"
+            icon={<Phone size={24} weight="bold" />}
+          />
 
           {!user ? (
-            <ListItem url="/login" text="Login" />
+            <ListItem
+              url="/login"
+              text="Login"
+              icon={<SignIn size={24} weight="bold" className="" />}
+            />
           ) : (
-            <li className="mt-3 lg:mt-0 lg:flex-row lg:ml-auto relative">
-              <div className="flex items-center">
+            <li className="mt-3 md:mt-0 md:flex-row md:ml-auto relative">
+              <div
+                className="flex items-center cursor-pointer"
+                onClick={() => setOpen(!open)}
+              >
                 <img
                   src={user.avatar}
-                  className="w-10 h-10 rounded-[50%] lg:w-auto mr-2"
+                  className="w-10 h-10 rounded-[50%] md:w-auto mr-2"
                   alt=""
                 />
-                <strong className="font-semibold text-sm">{user.name}</strong>
               </div>
 
-              <div className="w-60 absolute top-[60px] left-[-120px]">
+              <div
+                className={`${
+                  open ? 'block' : 'hidden'
+                } w-56 absolute top-[70px] left-[-164px] bg-brand-primary shadow-2xl `}
+              >
                 <ul className="w-[100%] flex flex-col justify-center items-center">
-                  <li className="mt-3 flex justify-between items-center w-[70%]">
-                    <Car />
-                    <Link href="/" className="lg:w-auto px-3 py-2 rounded">
-                      <a className="font-bold text-zinc-100 text-sm">
+                  <li className="mt-3 flex items-center w-[70%]">
+                    <Car size={18} weight="bold" />
+                    <Link href="/">
+                      <a className="font-bold text-zinc-100 text-sm md:w-auto px-3 py-2 rounded">
                         Venda seu carro
                       </a>
                     </Link>
                   </li>
-                  <li className="mt-3 flex justify-between w-[70%]">
-                    <SoccerBall />
-                    <Link
-                      href="/"
-                      className="lg:w-auto px-3 py-2 rounded cente"
-                    >
-                      <a className="font-bold text-zinc-100 text-sm ">
+                  <li className="mt-3 flex items-center w-[70%]">
+                    <SoccerBall size={18} weight="bold" />
+                    <Link href="/">
+                      <a className="font-bold text-zinc-100 text-sm md:w-auto px-3 py-2 rounded">
                         Meus anuncios
                       </a>
                     </Link>
                   </li>
-                  <li className="mt-3 flex justify-between w-[70%]">
-                    <PencilSimple />
-                    <Link href="/" className="lg:w-auto px-3 py-2 rounded">
-                      <a className="font-bold text-zinc-100 text-sm">
+                  <li className="mt-3 flex items-center w-[70%]">
+                    <PencilSimple size={18} weight="bold" />
+                    <Link href="/">
+                      <a className="font-bold text-zinc-100 text-sm md:w-auto px-3 py-2 rounded">
                         Minha conta
                       </a>
                     </Link>
                   </li>
-                  <li className="mt-3 flex justify-between w-[70%]">
-                    <SignOut />
-                    <Link href="/" className="lg:w-auto px-3 py-2 rounded">
-                      <a className="font-bold text-zinc-100 text-sm">Sair</a>
+                  <li
+                    className="mt-3 mb-2 flex items-center w-[70%]"
+                    onClick={signout}
+                  >
+                    <SignOut size={18} weight="bold" />
+                    <Link href="/">
+                      <a className="font-bold text-zinc-100 text-sm md:w-auto px-3 py-2 rounded">
+                        Sair
+                      </a>
                     </Link>
                   </li>
                 </ul>

@@ -1,9 +1,4 @@
-import {
-  FacebookAuthProvider,
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup
-} from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import Router from 'next/router'
 import { setCookie } from 'nookies'
 import { createContext, useEffect, useState } from 'react'
@@ -14,67 +9,68 @@ interface User {
   name: string | null
   avatar: any
   userEmail: string | null
-  phone: string | null,
+  phone: string | null
 }
 
 interface AuthContextData {
-  user: User | undefined;
-  loading: boolean;
+  user: User | undefined
+  loading: boolean
   isAuthenticated: boolean
-  signInWithGoogle: () => Promise<void>;
-  signInWithFacebook: () => Promise<void>;
-  signout: () => Promise<void>;
+  signInWithGoogle: () => Promise<void>
+  signInWithFacebook: () => Promise<void>
+  signout: () => Promise<void>
 }
 
 const AuthContext = createContext({} as AuthContextData)
 
 interface AuthProviderProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | undefined>()
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const isAuthenticated = !!user
 
   useEffect(() => {
     const auth = getAuth()
+
     return auth.onIdTokenChanged(async (user) => {
       if (!user) {
-        setUser(undefined);
-        setCookie(undefined, 'token', '',{
+        setUser(undefined)
+        setCookie(undefined, 'token', '', {
           maxAge: 30 * 24 * 60 * 60,
-        });
+        })
       } else {
-        const token = await user.getIdToken();
+        const token = await user.getIdToken()
         setUser({
           id: user.uid,
           userEmail: user.email,
           name: user.displayName,
           phone: user.phoneNumber,
           avatar: user.photoURL,
-        });
-        setCookie(undefined, 'token', token,{
+        })
+        setCookie(undefined, 'token', token, {
           maxAge: 30 * 24 * 60 * 60,
-        });
+        })
       }
-    });
-  }, []);
+    })
+  }, [])
 
-  async function signInWithGoogle() {
+  async function signInWithProvider(provider: any) {
     try {
       setLoading(true)
       const auth = getAuth()
       const provider = new GoogleAuthProvider()
-      const result =  await signInWithPopup(auth, provider)
+      const result = await signInWithPopup(auth, provider)
 
-      if(result.user) {
-        const {email, displayName, phoneNumber, photoURL, uid} = result.user
+      if (result.user) {
+        const { email, displayName, phoneNumber, photoURL, uid } = result.user
         const token = await result.user.getIdToken()
-      
-        if(!displayName || !photoURL) {
-          throw new Error("missing information from Google account")
+
+        if (!displayName || !photoURL) {
+          throw new Error('missing information from Google account')
         }
 
         setUser({
@@ -87,61 +83,64 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         setCookie(undefined, 'token', token, {
           maxAge: 30 * 24 * 60 * 60,
-        });
-      }
-
-      if (!result.user) {
-        setUser(undefined);
-        setCookie(undefined, 'token', '', {
-          maxAge: 30 * 24 * 60 * 60,
-        });
-      }
-    } finally {
-      setLoading(false)
-    }   
-  }
-
-  async function signInWithFacebook() {
-    try {
-      setLoading(true)
-      const auth = getAuth()
-      const provider = new FacebookAuthProvider()
-      const result =  await signInWithPopup(auth, provider)
-
-      if(result.user) {
-        const {email, displayName, phoneNumber, photoURL, uid} = result.user
-        const token = await result.user.getIdToken()
-      
-        if(!displayName || !photoURL) {
-          throw new Error("missing information from Google account")
-        }
-
-        setUser({
-          id: uid,
-          userEmail: email,
-          name: displayName,
-          phone: phoneNumber,
-          avatar: photoURL,
         })
-
-        setCookie(undefined, 'token', token, {
-          maxAge: 30 * 24 * 60 * 60,
-        });
       }
 
       if (!result.user) {
-        setUser(undefined);
+        setUser(undefined)
         setCookie(undefined, 'token', '', {
           maxAge: 30 * 24 * 60 * 60,
-        });
+        })
       }
     } finally {
+      Router.back()
       setLoading(false)
-    }   
+    }
   }
+
+  // async function signInWithFacebook() {
+  //   try {
+  //     setLoading(true)
+  //     const auth = getAuth()
+  //     const provider = new FacebookAuthProvider()
+  //     const result = await signInWithPopup(auth, provider)
+
+  //     if (result.user) {
+  //       const { email, displayName, phoneNumber, photoURL, uid } = result.user
+  //       const token = await result.user.getIdToken()
+
+  //       if (!displayName || !photoURL) {
+  //         throw new Error('missing information from Google account')
+  //       }
+
+  //       setUser({
+  //         id: uid,
+  //         userEmail: email,
+  //         name: displayName,
+  //         phone: phoneNumber,
+  //         avatar: photoURL,
+  //       })
+
+  //       setCookie(undefined, 'token', token, {
+  //         maxAge: 30 * 24 * 60 * 60,
+  //       })
+  //     }
+
+  //     if (!result.user) {
+  //       setUser(undefined)
+  //       setCookie(undefined, 'token', '', {
+  //         maxAge: 30 * 24 * 60 * 60,
+  //       })
+  //     }
+  //   } finally {
+  //     R
+  //     setLoading(false)
+  //   }
+  // }
 
   async function signout() {
     try {
+      setLoading(true)
       Router.push('/')
 
       await firebase
@@ -156,7 +155,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, isAuthenticated, signInWithGoogle, signInWithFacebook, signout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        isAuthenticated,
+        signInWithGoogle,
+        signInWithFacebook,
+        signout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )
