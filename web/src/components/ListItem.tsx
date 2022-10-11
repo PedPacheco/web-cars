@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
 interface ListItemProps {
-  text: string;
-  url: string;
-  icon?: React.ReactNode;
+  text: string
+  url: string
+  icon?: React.ReactNode
 }
 
 export function ListItem({ text, url, icon }: ListItemProps) {

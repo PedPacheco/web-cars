@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 interface PriceBoxProps {
-  text: string;
+  text: string
 }
 
 export function PriceBox({ text }: PriceBoxProps) {

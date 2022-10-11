@@ -1,5 +1,5 @@
 interface InputProps {
-  text: string;
+  text: string
 }
 
 export function Input({ text }: InputProps) {

@@ -2,9 +2,9 @@ import * as Select from '@radix-ui/react-select'
 import { CaretDown } from 'phosphor-react'
 
 interface SelectProps {
-  text: string;
-  mdMaxWidth: string;
-  maxWidth: string;
+  text: string
+  mdMaxWidth: string
+  maxWidth: string
 }
 
 export function SelectComponent({ text, mdMaxWidth, maxWidth }: SelectProps) {

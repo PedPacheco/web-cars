@@ -1,6 +1,6 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import Router from 'next/router'
-import { setCookie } from 'nookies'
+import { destroyCookie, setCookie } from 'nookies'
 import { createContext, useEffect, useState } from 'react'
 import firebase from '../lib/firebase'
 
@@ -16,8 +16,7 @@ interface AuthContextData {
   user: User | undefined
   loading: boolean
   isAuthenticated: boolean
-  signInWithGoogle: () => Promise<void>
-  signInWithFacebook: () => Promise<void>
+  signInWithProvider: (provider: any) => Promise<void>
   signout: () => Promise<void>
 }
 
@@ -62,7 +61,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       setLoading(true)
       const auth = getAuth()
-      const provider = new GoogleAuthProvider()
+      console.log(provider)
       const result = await signInWithPopup(auth, provider)
 
       if (result.user) {
@@ -93,50 +92,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
         })
       }
     } finally {
-      Router.back()
+      // Router.back()
       setLoading(false)
     }
   }
-
-  // async function signInWithFacebook() {
-  //   try {
-  //     setLoading(true)
-  //     const auth = getAuth()
-  //     const provider = new FacebookAuthProvider()
-  //     const result = await signInWithPopup(auth, provider)
-
-  //     if (result.user) {
-  //       const { email, displayName, phoneNumber, photoURL, uid } = result.user
-  //       const token = await result.user.getIdToken()
-
-  //       if (!displayName || !photoURL) {
-  //         throw new Error('missing information from Google account')
-  //       }
-
-  //       setUser({
-  //         id: uid,
-  //         userEmail: email,
-  //         name: displayName,
-  //         phone: phoneNumber,
-  //         avatar: photoURL,
-  //       })
-
-  //       setCookie(undefined, 'token', token, {
-  //         maxAge: 30 * 24 * 60 * 60,
-  //       })
-  //     }
-
-  //     if (!result.user) {
-  //       setUser(undefined)
-  //       setCookie(undefined, 'token', '', {
-  //         maxAge: 30 * 24 * 60 * 60,
-  //       })
-  //     }
-  //   } finally {
-  //     R
-  //     setLoading(false)
-  //   }
-  // }
 
   async function signout() {
     try {
@@ -149,6 +108,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         .then(() => {
           setUser(undefined)
         })
+      destroyCookie(null, 'token')
     } finally {
       setLoading(false)
     }
@@ -160,8 +120,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         user,
         loading,
         isAuthenticated,
-        signInWithGoogle,
-        signInWithFacebook,
+        signInWithProvider,
         signout,
       }}
     >

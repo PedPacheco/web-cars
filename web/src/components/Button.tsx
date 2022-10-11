@@ -1,7 +1,7 @@
 interface ButtonProps {
-  type?: 'button' | 'submit' | 'reset';
-  lgWidth: string;
-  text: string;
+  type?: 'button' | 'submit' | 'reset'
+  lgWidth: string
+  text: string
 }
 
 export function Button({ type, text, lgWidth }: ButtonProps) {

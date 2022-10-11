@@ -1,4 +1,5 @@
 import * as Separator from '@radix-ui/react-separator'
+import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { AppleLogo, FacebookLogo, GoogleLogo, X } from 'phosphor-react'
@@ -9,21 +10,22 @@ import { Input } from '~/components/Input'
 import UseAuth from '~/hooks/useAuth'
 
 export default function Login() {
-  const { signInWithGoogle, isAuthenticated, signInWithFacebook } = UseAuth()
+  const { isAuthenticated, signInWithProvider } = UseAuth()
+  const googleProvider = new GoogleAuthProvider()
+  const facebookProvider = new FacebookAuthProvider()
   const router = useRouter()
 
   useEffect(() => {
     if (isAuthenticated) {
       router.push('/')
-      return
     }
-  }, [])
+  })
 
   return (
     <>
       <Header />
 
-      <div className=" flex flex-col items-center lg:mt-40 lg:h-[480px]">
+      <div className=" flex flex-col items-center mt-20 lg:h-[480px]">
         <div className="bg-zinc-800 relative w-full py-8 px-5 lg:w-[634px] lg:rounded-lg lg:pt-16 lg:pb-9 lg:px-8">
           <X size={24} className="absolute top-5 right-5 cursor-pointer" />
           <div className="flex flex-col h-full">
@@ -34,7 +36,7 @@ export default function Login() {
                 </h1>
                 <div>
                   <button
-                    onClick={signInWithFacebook}
+                    onClick={() => signInWithProvider(facebookProvider)}
                     className="w-full h-10 rounded-lg text-xs font-medium p-2 flex items-center bg-[#3b5998] hover:bg-[#8b9dc3] transition-colors justify-start mb-4"
                   >
                     <FacebookLogo size={24} weight="bold" className="mr-5" />
@@ -45,7 +47,7 @@ export default function Login() {
 
                   <button
                     className="w-full h-10 rounded-lg text-xs font-medium p-2 flex items-center bg-white hover:bg-slate-200 transition-colors justify-start mb-4"
-                    onClick={signInWithGoogle}
+                    onClick={() => signInWithProvider(googleProvider)}
                   >
                     <GoogleLogo
                       size={24}

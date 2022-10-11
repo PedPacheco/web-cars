@@ -11,7 +11,6 @@ import {
 } from 'phosphor-react'
 import { useState } from 'react'
 import UseAuth from '~/hooks/useAuth'
-// import { getWindowDimensions } from '~/utils/getWindowDimensions'
 import { ListItem } from './ListItem'
 
 export function Header() {
@@ -65,17 +64,19 @@ export function Header() {
                 className="flex items-center cursor-pointer"
                 onClick={() => setOpen(!open)}
               >
-                <img
+                <Image
                   src={user.avatar}
-                  className="w-10 h-10 rounded-[50%] md:w-auto mr-2"
-                  alt=""
+                  alt="Foto de perfil"
+                  width={40}
+                  height={40}
+                  className=" rounded-[50%] md:w-auto mr-2"
                 />
               </div>
 
               <div
                 className={`${
                   open ? 'block' : 'hidden'
-                } w-56 absolute top-[70px] left-[-164px] bg-brand-primary shadow-2xl `}
+                } w-56 absolute top-[70px] left-[-180px] bg-brand-primary shadow-2xl transition-all`}
               >
                 <ul className="w-[100%] flex flex-col justify-center items-center">
                   <li className="mt-3 flex items-center w-[70%]">
