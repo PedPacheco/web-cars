@@ -41,7 +41,7 @@ export function Header() {
           />
 
           <ListItem
-            url="/estoque"
+            url="/sell-my-car"
             text="Carros à venda"
             icon={<Car size={24} weight="bold" />}
           />

@@ -2,24 +2,27 @@ import * as Separator from '@radix-ui/react-separator'
 import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { parseCookies } from 'nookies'
 import { AppleLogo, FacebookLogo, GoogleLogo, X } from 'phosphor-react'
 import { useEffect } from 'react'
 import { Button } from '~/components/Button'
 import { Header } from '~/components/Header'
-import { Input } from '~/components/Input'
+import { InputLogin } from '~/components/InputLogin'
 import UseAuth from '~/hooks/useAuth'
 
 export default function Login() {
-  const { isAuthenticated, signInWithProvider } = UseAuth()
+  const { signInWithProvider } = UseAuth()
+  const { token } = parseCookies()
   const googleProvider = new GoogleAuthProvider()
   const facebookProvider = new FacebookAuthProvider()
   const router = useRouter()
 
   useEffect(() => {
-    if (isAuthenticated) {
+    console.log(token)
+    if (token !== '') {
       router.push('/')
     }
-  })
+  }, [token, router])
 
   return (
     <>
@@ -81,8 +84,8 @@ export default function Login() {
                   Digite sua senha e e-mail
                 </h1>
                 <form>
-                  <Input text="E-mail" />
-                  <Input text="Senha" />
+                  <InputLogin text="E-mail" changeState={} />
+                  <InputLogin text="Senha" changeState={} />
                   <Button type="submit" text="Entrar" lgWidth="lg:w-auto" />
                 </form>
               </section>

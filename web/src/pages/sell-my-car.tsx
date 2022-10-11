@@ -1,19 +1,18 @@
 import { useRouter } from 'next/router'
+import { parseCookies } from 'nookies'
 import { useEffect } from 'react'
 import { Header } from '~/components/Header'
-import { SellYourVehicle } from '~/components/SellYourVehicle'
-import UseAuth from '~/hooks/useAuth'
+import { SellYourVehicle } from '~/components/SellYourVehicle/SellYourVehicle'
 
 export default function SellMyCar() {
-  const { isAuthenticated } = UseAuth()
   const router = useRouter()
+  const { token } = parseCookies()
 
   useEffect(() => {
-    if (isAuthenticated === false) {
+    if (token === '') {
       router.push('/login')
-      return
     }
-  }, [])
+  }, [token, router])
 
   return (
     <>

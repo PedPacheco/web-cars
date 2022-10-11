@@ -1,8 +1,13 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import {
+  FacebookAuthProvider,
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth'
 import Router from 'next/router'
-import { destroyCookie, setCookie } from 'nookies'
+import { setCookie } from 'nookies'
 import { createContext, useEffect, useState } from 'react'
-import firebase from '../lib/firebase'
+import { firebase } from '../lib/firebase'
 
 interface User {
   id: string
@@ -15,22 +20,21 @@ interface User {
 interface AuthContextData {
   user: User | undefined
   loading: boolean
-  isAuthenticated: boolean
-  signInWithProvider: (provider: any) => Promise<void>
+  signInWithProvider: (
+    provider: GoogleAuthProvider | FacebookAuthProvider,
+  ) => Promise<void>
   signout: () => Promise<void>
 }
-
-const AuthContext = createContext({} as AuthContextData)
 
 interface AuthProviderProps {
   children: React.ReactNode
 }
 
+const AuthContext = createContext({} as AuthContextData)
+
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
-
-  const isAuthenticated = !!user
 
   useEffect(() => {
     const auth = getAuth()
@@ -57,11 +61,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     })
   }, [])
 
-  async function signInWithProvider(provider: any) {
+  async function signInWithProvider(
+    provider: GoogleAuthProvider | FacebookAuthProvider,
+  ) {
     try {
       setLoading(true)
       const auth = getAuth()
-      console.log(provider)
       const result = await signInWithPopup(auth, provider)
 
       if (result.user) {
@@ -108,7 +113,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
         .then(() => {
           setUser(undefined)
         })
-      destroyCookie(null, 'token')
+      setUser(undefined)
+      setCookie(undefined, 'token', '', {
+        maxAge: 30 * 24 * 60 * 60,
+      })
     } finally {
       setLoading(false)
     }
@@ -119,7 +127,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       value={{
         user,
         loading,
-        isAuthenticated,
         signInWithProvider,
         signout,
       }}

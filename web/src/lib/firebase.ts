@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
+import { getDatabase } from 'firebase/database'
 
 const firebaseCredentials = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY,
@@ -11,4 +12,6 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseCredentials)
 }
 
-export default firebase
+const database = getDatabase()
+
+export { firebase, database }

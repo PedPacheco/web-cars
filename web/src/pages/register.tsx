@@ -1,10 +1,17 @@
 import Link from 'next/link'
 import { X } from 'phosphor-react'
+import { useState } from 'react'
 import { Button } from '~/components/Button'
 import { Header } from '~/components/Header'
-import { Input } from '~/components/Input'
+import { InputLogin } from '~/components/InputLogin'
 
 export default function Register() {
+  const [name, setName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState('')
+  const [checkPassword, setCheckPassword] = useState('')
+
+  console.log(email, password)
   return (
     <>
       <Header />
@@ -19,10 +26,17 @@ export default function Register() {
                   Crie uma conta com seu E-mail
                 </h1>
                 <form>
-                  <Input text="Nome completo" />
-                  <Input text="E-mail" />
-                  <Input text="Senha" />
-                  <Input text="Confirmar senha" />
+                  <InputLogin text="Nome completo" changeState={setName} />
+                  <InputLogin text="E-mail" changeState={setEmail} />
+                  <InputLogin
+                    text="Senha"
+                    changeState={setPassword}
+                    type="password"
+                  />
+                  <InputLogin
+                    text="Confirmar senha"
+                    changeState={setPassword}
+                  />
                   <Button
                     type="submit"
                     text="Criar conta"
