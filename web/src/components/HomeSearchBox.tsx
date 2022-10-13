@@ -33,7 +33,7 @@ export function HomeSearchBox() {
           />
 
           <div className="max-w-[80%] w-full px-4 md:max-w-[50%]">
-            <Button text="Buscar" lgWidth="w-full" />
+            <Button lgwidth="w-full">Buscar</Button>
           </div>
         </div>
       </form>

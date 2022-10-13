@@ -3,7 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['tonyveiculos.com.br', 'lh3.googleusercontent.com'],
+    domains: [
+      'tonyveiculos.com.br',
+      'lh3.googleusercontent.com',
+      'static.vecteezy.com',
+    ],
   },
 }
 

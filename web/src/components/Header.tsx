@@ -65,7 +65,7 @@ export function Header() {
                 onClick={() => setOpen(!open)}
               >
                 <Image
-                  src={user.avatar}
+                  src={user?.avatar}
                   alt="Foto de perfil"
                   width={40}
                   height={40}

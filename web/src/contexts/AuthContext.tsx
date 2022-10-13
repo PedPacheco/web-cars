@@ -1,8 +1,10 @@
 import {
+  createUserWithEmailAndPassword,
   FacebookAuthProvider,
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  updateProfile,
 } from 'firebase/auth'
 import Router from 'next/router'
 import { setCookie } from 'nookies'
@@ -22,6 +24,13 @@ interface AuthContextData {
   loading: boolean
   signInWithProvider: (
     provider: GoogleAuthProvider | FacebookAuthProvider,
+  ) => Promise<void>
+  registerWithEmailAndPassword: (
+    name: string,
+    email: string,
+    password: string,
+    phone: string,
+    selectedImage: FileList | null | undefined,
   ) => Promise<void>
   signout: () => Promise<void>
 }
@@ -73,6 +82,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const { email, displayName, phoneNumber, photoURL, uid } = result.user
         const token = await result.user.getIdToken()
 
+        console.log(photoURL)
         if (!displayName || !photoURL) {
           throw new Error('missing information from Google account')
         }
@@ -97,7 +107,60 @@ export function AuthProvider({ children }: AuthProviderProps) {
         })
       }
     } finally {
-      // Router.back()
+      Router.back()
+      setLoading(false)
+    }
+  }
+
+  async function registerWithEmailAndPassword(
+    name: string,
+    email: string,
+    password: string,
+    phone: string,
+    selectedImage: FileList | null | undefined,
+  ) {
+    try {
+      setLoading(true)
+      const auth = getAuth()
+
+      // if (!name || !selectedImage) {
+      //   return console.error('missing information from Google account')
+      // }
+
+      const result = await createUserWithEmailAndPassword(auth, email, password)
+
+      updateProfile(result.user, {
+        displayName: name,
+        photoURL:
+          'https://static.vecteezy.com/ti/vetor-gratis/p1/1840618-imagem-perfil-icone-masculino-icone-humano-ou-pessoa-sinal-e-simbolo-gr%C3%A1tis-vetor.jpg',
+      })
+
+      console.log(result.user)
+      if (result.user) {
+        const { email, displayName, phoneNumber, photoURL, uid } = result.user
+        const token = await result.user.getIdToken()
+
+        setUser({
+          id: uid,
+          userEmail: email,
+          name: displayName,
+          phone: phoneNumber,
+          avatar: photoURL,
+        })
+
+        setCookie(undefined, 'token', token, {
+          maxAge: 30 * 24 * 60 * 60,
+        })
+      }
+
+      if (!result.user) {
+        setUser(undefined)
+        setCookie(undefined, 'token', '', {
+          maxAge: 30 * 24 * 60 * 60,
+        })
+      }
+    } finally {
+      Router.back()
       setLoading(false)
     }
   }
@@ -128,6 +191,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         user,
         loading,
         signInWithProvider,
+        registerWithEmailAndPassword,
         signout,
       }}
     >

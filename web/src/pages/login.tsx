@@ -3,8 +3,8 @@ import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
-import { AppleLogo, FacebookLogo, GoogleLogo, X } from 'phosphor-react'
-import { useEffect } from 'react'
+import { FacebookLogo, GoogleLogo, X } from 'phosphor-react'
+import { useEffect, useState } from 'react'
 import { Button } from '~/components/Button'
 import { Header } from '~/components/Header'
 import { InputLogin } from '~/components/InputLogin'
@@ -16,6 +16,8 @@ export default function Login() {
   const googleProvider = new GoogleAuthProvider()
   const facebookProvider = new FacebookAuthProvider()
   const router = useRouter()
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState('')
 
   useEffect(() => {
     console.log(token)
@@ -61,17 +63,6 @@ export default function Login() {
                       Entrar com Google
                     </p>
                   </button>
-
-                  <button className="w-full h-10 rounded-lg text-xs font-medium p-2 flex items-center bg-neutral-900 hover:bg-neutral-700 transition-colors justify-start mb-4">
-                    <AppleLogo
-                      size={24}
-                      weight="bold"
-                      className="mr-5 text-white"
-                    />
-                    <p className="mr-15 font-medium flex-grow text-white">
-                      Entrar com Apple
-                    </p>
-                  </button>
                 </div>
               </section>
               <Separator.Root className="relative my-4 border border-solid border-zinc-700 lg:mx-8">
@@ -84,9 +75,17 @@ export default function Login() {
                   Digite sua senha e e-mail
                 </h1>
                 <form>
-                  <InputLogin text="E-mail" changeState={} />
-                  <InputLogin text="Senha" changeState={} />
-                  <Button type="submit" text="Entrar" lgWidth="lg:w-auto" />
+                  <InputLogin
+                    text="E-mail"
+                    onChange={(event) => setEmail(event.target.value)}
+                    id="E-mail"
+                  />
+                  <InputLogin
+                    text="Senha"
+                    onChange={(event) => setPassword(event.target.value)}
+                    id="Senha"
+                  />
+                  <Button lgwidth="lg:w-auto">Entrar</Button>
                 </form>
               </section>
             </div>
