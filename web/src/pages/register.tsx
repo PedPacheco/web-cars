@@ -1,14 +1,13 @@
-import Compress from 'compress.js'
 import Link from 'next/link'
 import { X } from 'phosphor-react'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { Button } from '~/components/Button'
 import { Header } from '~/components/Header'
 import { InputLogin } from '~/components/InputLogin'
 import UseAuth from '~/hooks/useAuth'
 
 export default function Register() {
-  const [selectedImage, setSelectedImage] = useState<any>()
+  const [url, setUrl] = useState('')
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [phone, setPhone] = useState('')
@@ -23,25 +22,29 @@ export default function Register() {
       return console.error('senhas diferentes')
     }
 
-    registerWithEmailAndPassword(name, email, password, phone, selectedImage)
+    registerWithEmailAndPassword(name, email, password, phone, url)
   }
 
-  function handleInputFile(event: ChangeEvent<HTMLInputElement>) {
-    const compress = new Compress()
+  async function uploadImage(file: File) {
+    const formData = new FormData()
+    formData.append('file', file as Blob)
+    formData.append('upload_preset', 'web-cars')
+    formData.append('cloud_name', 'dnaqaaqun')
 
-    const files = event.target.files
-    compress
-      .compress(files, {
-        size: 4,
-        quality: 1,
-        maxWidth: 162,
-        maxHeight: 162,
-        resize: true,
-        rotate: false,
-      })
-      .then((response) => {
-        setSelectedImage(response[0].prefix + response[0].data)
-      })
+    try {
+      const res = await fetch(
+        'https://api.cloudinary.com/v1_1/dnaqaaqun/image/upload',
+        {
+          method: 'POST',
+          body: formData,
+        },
+      )
+
+      const data = await res.json()
+      setUrl(data.url)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -62,7 +65,11 @@ export default function Register() {
                     type="file"
                     text="Imagem de perfil"
                     onChange={(event) => {
-                      handleSetImage(event)
+                      const file = (event.target as HTMLInputElement).files![0]
+                      if (!file) {
+                        return
+                      }
+                      uploadImage(file)
                     }}
                   />
                   <InputLogin

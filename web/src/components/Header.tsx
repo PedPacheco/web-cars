@@ -11,6 +11,7 @@ import {
 } from 'phosphor-react'
 import { useState } from 'react'
 import UseAuth from '~/hooks/useAuth'
+import perfil from '../assets/perfil.jpg'
 import { ListItem } from './ListItem'
 
 export function Header() {
@@ -64,13 +65,23 @@ export function Header() {
                 className="flex items-center cursor-pointer"
                 onClick={() => setOpen(!open)}
               >
-                <Image
-                  src={user?.avatar}
-                  alt="Foto de perfil"
-                  width={40}
-                  height={40}
-                  className=" rounded-[50%] md:w-auto mr-2"
-                />
+                {user.avatar ? (
+                  <Image
+                    src={user.avatar}
+                    alt="Foto de perfil"
+                    width={40}
+                    height={40}
+                    className=" rounded-[50%] md:w-auto mr-2"
+                  />
+                ) : (
+                  <Image
+                    src={perfil}
+                    alt="Foto de perfil"
+                    width={40}
+                    height={40}
+                    className=" rounded-[50%] md:w-auto mr-2"
+                  />
+                )}
               </div>
 
               <div

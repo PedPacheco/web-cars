@@ -6,7 +6,7 @@ const nextConfig = {
     domains: [
       'tonyveiculos.com.br',
       'lh3.googleusercontent.com',
-      'static.vecteezy.com',
+      'res.cloudinary.com',
     ],
   },
 }

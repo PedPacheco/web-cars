@@ -30,7 +30,7 @@ interface AuthContextData {
     email: string,
     password: string,
     phone: string,
-    selectedImage: FileList | null | undefined,
+    urlImage: string,
   ) => Promise<void>
   signout: () => Promise<void>
 }
@@ -82,7 +82,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const { email, displayName, phoneNumber, photoURL, uid } = result.user
         const token = await result.user.getIdToken()
 
-        console.log(photoURL)
         if (!displayName || !photoURL) {
           throw new Error('missing information from Google account')
         }
@@ -117,35 +116,33 @@ export function AuthProvider({ children }: AuthProviderProps) {
     email: string,
     password: string,
     phone: string,
-    selectedImage: FileList | null | undefined,
+    urlImage: string,
   ) {
     try {
       setLoading(true)
       const auth = getAuth()
 
-      // if (!name || !selectedImage) {
-      //   return console.error('missing information from Google account')
-      // }
+      if (!name || !urlImage) {
+        return console.error('missing information from account')
+      }
 
       const result = await createUserWithEmailAndPassword(auth, email, password)
 
       updateProfile(result.user, {
         displayName: name,
-        photoURL:
-          'https://static.vecteezy.com/ti/vetor-gratis/p1/1840618-imagem-perfil-icone-masculino-icone-humano-ou-pessoa-sinal-e-simbolo-gr%C3%A1tis-vetor.jpg',
+        photoURL: urlImage,
       })
 
-      console.log(result.user)
       if (result.user) {
-        const { email, displayName, phoneNumber, photoURL, uid } = result.user
+        const { email, displayName, uid } = result.user
         const token = await result.user.getIdToken()
 
         setUser({
           id: uid,
           userEmail: email,
           name: displayName,
-          phone: phoneNumber,
-          avatar: photoURL,
+          phone,
+          avatar: urlImage,
         })
 
         setCookie(undefined, 'token', token, {
