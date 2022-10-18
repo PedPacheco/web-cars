@@ -1,12 +1,10 @@
-import { database } from '~/lib/firebase'
 import { Input } from '../Input'
 
 export function SellYourVehicle() {
-  console.log(database)
   return (
     <section className="py-6 ">
-      <div className="w-[calc(100%-34px)] px-4 mx-auto md:w-[480px]">
-        <h1 className="text-xl font-light text-center mb-6 text-zinc-400">
+      <div className="w-[calc(100%-34px)] px-4 mx-auto my-3 md:w-[480px]">
+        <h1 className="text-3xl font-light text-center mb-6 text-zinc-400">
           Vamos começar o seu Anúncio?
         </h1>
 
