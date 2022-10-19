@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { FacebookLogo, GoogleLogo, X } from 'phosphor-react'
-import { useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { Button } from '~/components/Button'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/Header'
@@ -12,20 +12,25 @@ import { InputLogin } from '~/components/InputLogin'
 import UseAuth from '~/hooks/useAuth'
 
 export default function Login() {
-  const { signInWithProvider } = UseAuth()
+  const { signInWithProvider, loginWithEmailAndPassword } = UseAuth()
   const { token } = parseCookies()
   const googleProvider = new GoogleAuthProvider()
   const facebookProvider = new FacebookAuthProvider()
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState<string>('')
 
   useEffect(() => {
-    console.log(token)
     if (token !== '') {
       router.push('/')
     }
   }, [token, router])
+
+  function loginUser(event: FormEvent) {
+    event.preventDefault()
+
+    loginWithEmailAndPassword(email, password)
+  }
 
   return (
     <>
@@ -75,18 +80,21 @@ export default function Login() {
                 <h1 className="mt-5 mb-6 font-medium text-2xl text-zinc-100 lg:mb-5">
                   Digite sua senha e e-mail
                 </h1>
-                <form>
+                <form onSubmit={(event) => loginUser(event)}>
                   <InputLogin
                     text="E-mail"
                     onChange={(event) => setEmail(event.target.value)}
                     id="E-mail"
                   />
                   <InputLogin
+                    type="password"
                     text="Senha"
                     onChange={(event) => setPassword(event.target.value)}
                     id="Senha"
                   />
-                  <Button lgwidth="lg:w-auto">Entrar</Button>
+                  <Button type="submit" lgwidth="lg:w-auto">
+                    Entrar
+                  </Button>
                 </form>
               </section>
             </div>

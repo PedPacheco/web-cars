@@ -42,7 +42,7 @@ export function Header() {
           />
 
           <ListItem
-            url="/sell-my-car"
+            url="/"
             text="Carros à venda"
             icon={<Car size={24} weight="bold" />}
           />
@@ -77,8 +77,8 @@ export function Header() {
                   <Image
                     src={perfil}
                     alt="Foto de perfil"
-                    width={40}
-                    height={40}
+                    width={48}
+                    height={48}
                     className=" rounded-[50%] md:w-auto mr-2"
                   />
                 )}
@@ -92,7 +92,7 @@ export function Header() {
                 <ul className="w-[100%] flex flex-col justify-center items-center">
                   <li className="mt-3 flex items-center w-[70%]">
                     <Car size={18} weight="bold" />
-                    <Link href="/">
+                    <Link href="/sell-my-car">
                       <a className="font-bold text-zinc-100 text-sm md:w-auto px-3 py-2 rounded">
                         Venda seu carro
                       </a>

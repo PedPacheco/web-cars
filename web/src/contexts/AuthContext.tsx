@@ -3,6 +3,7 @@ import {
   FacebookAuthProvider,
   getAuth,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
   signInWithPopup,
   updateProfile,
 } from 'firebase/auth'
@@ -15,7 +16,7 @@ interface User {
   id: string
   name: string | null
   avatar: any
-  userEmail: string | null
+  email: string | null
   phone: string | null
 }
 
@@ -25,6 +26,7 @@ interface AuthContextData {
   signInWithProvider: (
     provider: GoogleAuthProvider | FacebookAuthProvider,
   ) => Promise<void>
+  loginWithEmailAndPassword: (email: string, password: string) => Promise<void>
   registerWithEmailAndPassword: (
     name: string,
     email: string,
@@ -58,7 +60,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const token = await user.getIdToken()
         setUser({
           id: user.uid,
-          userEmail: user.email,
+          email: user.email,
           name: user.displayName,
           phone: user.phoneNumber,
           avatar: user.photoURL,
@@ -88,7 +90,46 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         setUser({
           id: uid,
-          userEmail: email,
+          email,
+          name: displayName,
+          phone: phoneNumber,
+          avatar: photoURL,
+        })
+
+        setCookie(undefined, 'token', token, {
+          maxAge: 30 * 24 * 60 * 60,
+        })
+      }
+
+      if (!result.user) {
+        setUser(undefined)
+        setCookie(undefined, 'token', '', {
+          maxAge: 30 * 24 * 60 * 60,
+        })
+      }
+    } finally {
+      Router.back()
+      setLoading(false)
+    }
+  }
+
+  async function loginWithEmailAndPassword(email: string, passoword: string) {
+    try {
+      setLoading(true)
+      const auth = getAuth()
+      const result = await signInWithEmailAndPassword(auth, email, passoword)
+
+      if (result.user) {
+        const { email, displayName, phoneNumber, photoURL, uid } = result.user
+        const token = await result.user.getIdToken()
+
+        if (!displayName || !photoURL) {
+          throw new Error('missing information from account')
+        }
+
+        setUser({
+          id: uid,
+          email,
           name: displayName,
           phone: phoneNumber,
           avatar: photoURL,
@@ -139,7 +180,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         setUser({
           id: uid,
-          userEmail: email,
+          email,
           name: displayName,
           phone,
           avatar: urlImage,
@@ -188,6 +229,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         user,
         loading,
         signInWithProvider,
+        loginWithEmailAndPassword,
         registerWithEmailAndPassword,
         signout,
       }}

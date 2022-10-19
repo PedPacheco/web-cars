@@ -52,7 +52,7 @@ export default function Register() {
     <>
       <Header />
 
-      <div className=" flex flex-col items-center mt-20  lg:h-[480px]">
+      <div className=" flex flex-col items-center mt-10 lg:h-[480px]">
         <div className="bg-zinc-800 relative w-full py-8 px-5 lg:w-[634px] lg:rounded-lg lg:pt-16 lg:pb-9 lg:px-8">
           <X size={24} className="absolute top-5 right-5 cursor-pointer" />
           <div className="flex flex-col h-full">

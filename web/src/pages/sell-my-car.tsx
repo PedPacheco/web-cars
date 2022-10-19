@@ -7,7 +7,7 @@ import { SellYourVehicle } from '~/components/SellYourVehicle/SellYourVehicle'
 
 export default function SellMyCar() {
   const router = useRouter()
-  const [step, setStep] = useState<string>('')
+  const [step, setStep] = useState<string>('step1')
   const [vehicleData, setVehicleData] = useState({
     brand: null,
     model: null,
@@ -30,7 +30,15 @@ export default function SellMyCar() {
   return (
     <>
       <Header />
-      <SellYourVehicle />
+      {(() => {
+        switch (step) {
+          case 'step1':
+            return <SellYourVehicle changeStep={setStep} />
+          case 'step2':
+            return <h1>Hello world</h1>
+        }
+      })()}
+
       <Footer />
     </>
   )

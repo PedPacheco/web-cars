@@ -1,6 +1,15 @@
+import Router from 'next/router'
 import { Input } from '../Input'
 
-export function SellYourVehicle() {
+interface SellYourVehicleProps {
+  changeStep: (step: string) => void
+}
+
+export function SellYourVehicle({ changeStep }: SellYourVehicleProps) {
+  function returnForPreviousPage() {
+    Router.back()
+  }
+
   return (
     <section className="py-6 ">
       <div className="w-[calc(100%-34px)] px-4 mx-auto my-3 md:w-[480px]">
@@ -37,10 +46,16 @@ export function SellYourVehicle() {
 
         <div className="w-[calc(100%-34px)] mx-auto">
           <div className="fixed bottom-0 left-0 z-10 w-full flex md:w-[380px] md:mt-10 md:static md:mx-auto ">
-            <button className="hidden w-full bg-zinc-400 flex-grow h-12 cursor-pointer text-lg border-none hover:bg-zinc-300 transition-colors md:block">
+            <button
+              className="hidden w-full bg-zinc-400 flex-grow h-12 cursor-pointer text-lg border-none hover:bg-zinc-300 transition-colors md:block"
+              onClick={returnForPreviousPage}
+            >
               Voltar
             </button>
-            <button className="w-full bg-brand-primary flex-grow h-12 cursor-pointer text-lg border-none hover:bg-brand-hover transition-colors md:ml-5">
+            <button
+              className="w-full bg-brand-primary flex-grow h-12 cursor-pointer text-lg border-none hover:bg-brand-hover transition-colors md:ml-5"
+              onClick={() => changeStep('step2')}
+            >
               Continuar
             </button>
           </div>
