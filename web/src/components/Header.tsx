@@ -92,7 +92,7 @@ export function Header() {
                 <ul className="w-[100%] flex flex-col justify-center items-center">
                   <li className="mt-3 flex items-center w-[70%]">
                     <Car size={18} weight="bold" />
-                    <Link href="/sell-my-car">
+                    <Link href="/vender-carro/especificacoes">
                       <a className="font-bold text-zinc-100 text-sm md:w-auto px-3 py-2 rounded">
                         Venda seu carro
                       </a>

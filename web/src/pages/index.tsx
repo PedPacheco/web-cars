@@ -1,5 +1,4 @@
 import * as Separator from '@radix-ui/react-separator'
-import { Footer } from '~/components/Footer'
 import { Header } from '~/components/Header'
 import { HomeSearchBox } from '~/components/HomeSearchBox'
 import { PriceBox } from '~/components/PriceBox'
@@ -38,8 +37,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </>
   )
 }

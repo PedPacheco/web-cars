@@ -7,6 +7,7 @@ const nextConfig = {
       'tonyveiculos.com.br',
       'lh3.googleusercontent.com',
       'res.cloudinary.com',
+      'www.webmotors.com.br',
     ],
   },
 }

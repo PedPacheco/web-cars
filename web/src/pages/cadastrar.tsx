@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { X } from 'phosphor-react'
 import { FormEvent, useState } from 'react'
 import { Button } from '~/components/Button'
-import { Footer } from '~/components/Footer'
 import { Header } from '~/components/Header'
 import { InputLogin } from '~/components/InputLogin'
 import UseAuth from '~/hooks/useAuth'
@@ -113,8 +112,6 @@ export default function Register() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   )
 }
