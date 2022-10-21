@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { Step } from './Step'
 
 export function VehicleRegistratonHeader() {
   return (
-    <header className="w-full lg:w-[1170px] flex border-b border-zinc-700 bg-zinc-800">
-      <div className="w-[calc(100%-40px)] mx-auto relative flex items-center flex-wrap justify-center">
+    <header className="w-full flex border-b border-zinc-700 bg-zinc-800">
+      <div className="w-[calc(100%-40px)] lg:w-[1170px] mx-auto relative flex items-center flex-wrap justify-center">
         <h1 className="w-auto h-16 flex items-center">
           <Link
             href={{
@@ -15,7 +16,7 @@ export function VehicleRegistratonHeader() {
             <a>
               <Image
                 src={
-                  'https://www.webmotors.com.br/vender/img/brands/brand-webmotors.svg'
+                  'https://theme.zdassets.com/theme_assets/9588016/cc14d7ac81c746f8b560135fb73ee3f1eca56a54.png'
                 }
                 alt="Imagem do logo"
                 width={124}
@@ -25,9 +26,11 @@ export function VehicleRegistratonHeader() {
           </Link>
         </h1>
 
-        <div className="w-full mx-auto">
+        <div className="w-full lg:w-[1170px] mx-auto">
           <div className="w-72 flex mx-auto mb-6 justify-between ">
-            <div className="w-16 relative"></div>
+            <Step text="Veículo" step="1" />
+            <Step text="Sobre você" step="2" />
+            <Step text="Finalizar" step="3" isLast={true} />
           </div>
         </div>
       </div>

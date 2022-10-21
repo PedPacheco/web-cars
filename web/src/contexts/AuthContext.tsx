@@ -8,7 +8,7 @@ import {
   updateProfile,
 } from 'firebase/auth'
 import Router from 'next/router'
-import { setCookie } from 'nookies'
+import nookies from 'nookies'
 import { createContext, useEffect, useState } from 'react'
 import { firebase } from '../lib/firebase'
 
@@ -53,7 +53,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return auth.onIdTokenChanged(async (user) => {
       if (!user) {
         setUser(undefined)
-        setCookie(undefined, 'token', '', {
+        nookies.set(undefined, 'token', '', {
           maxAge: 30 * 24 * 60 * 60,
         })
       } else {
@@ -65,7 +65,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           phone: user.phoneNumber,
           avatar: user.photoURL,
         })
-        setCookie(undefined, 'token', token, {
+        nookies.set(undefined, 'token', token, {
           maxAge: 30 * 24 * 60 * 60,
         })
       }
@@ -96,14 +96,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
           avatar: photoURL,
         })
 
-        setCookie(undefined, 'token', token, {
+        nookies.set(undefined, 'token', token, {
           maxAge: 30 * 24 * 60 * 60,
         })
       }
 
       if (!result.user) {
         setUser(undefined)
-        setCookie(undefined, 'token', '', {
+        nookies.set(undefined, 'token', '', {
           maxAge: 30 * 24 * 60 * 60,
         })
       }
@@ -135,14 +135,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
           avatar: photoURL,
         })
 
-        setCookie(undefined, 'token', token, {
+        nookies.set(undefined, 'token', token, {
           maxAge: 30 * 24 * 60 * 60,
         })
       }
 
       if (!result.user) {
         setUser(undefined)
-        setCookie(undefined, 'token', '', {
+        nookies.set(undefined, 'token', '', {
           maxAge: 30 * 24 * 60 * 60,
         })
       }
@@ -186,14 +186,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
           avatar: urlImage,
         })
 
-        setCookie(undefined, 'token', token, {
+        nookies.set(undefined, 'token', token, {
           maxAge: 30 * 24 * 60 * 60,
         })
       }
 
       if (!result.user) {
         setUser(undefined)
-        setCookie(undefined, 'token', '', {
+        nookies.set(undefined, 'token', '', {
           maxAge: 30 * 24 * 60 * 60,
         })
       }
@@ -215,7 +215,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           setUser(undefined)
         })
       setUser(undefined)
-      setCookie(undefined, 'token', '', {
+      nookies.set(undefined, 'token', '', {
         maxAge: 30 * 24 * 60 * 60,
       })
     } finally {
