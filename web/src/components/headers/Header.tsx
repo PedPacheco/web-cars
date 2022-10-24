@@ -12,7 +12,7 @@ import {
 import { useState } from 'react'
 import UseAuth from '~/hooks/useAuth'
 import perfil from '../assets/perfil.jpg'
-import { ListItem } from './ListItem'
+import { ListItem } from '../ListItem'
 
 export function Header() {
   const { user, signout } = UseAuth()

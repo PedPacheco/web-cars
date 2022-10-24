@@ -2,8 +2,8 @@ import Link from 'next/link'
 import Router, { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
+import { VehicleRegistratonHeader } from '~/components/headers/VehicleRegistrationHeader'
 import { Input } from '~/components/Input'
-import { VehicleRegistratonHeader } from '~/components/VehicleRegistrationHeader'
 
 export default function Informations() {
   const router = useRouter()
@@ -60,6 +60,7 @@ export default function Informations() {
                   <Input
                     text="Quanto seu carro já rodou?*"
                     placeholder="0 km"
+                    sizeText="text-xs"
                     onChange={(event) => setKmTraveled(event.target.value)}
                     value={kmTraveled}
                   />
@@ -69,7 +70,7 @@ export default function Informations() {
                 <div className="w-96 mx-auto">
                   <div className="w-full mb-0">
                     <div className="w-full pt-2 relative flex flex-col">
-                      <label className=" text-zinc-400">
+                      <label className=" text-zinc-400 text-sm">
                         Aqui você pode falar um pouco mais sobre os diferenciais
                         do seu carro. Mas não é obrigatório, tá?
                       </label>
@@ -94,6 +95,7 @@ export default function Informations() {
                   <Input
                     text="Por quanto você quem vender seu carro?*"
                     placeholder="R$ 0 ,00"
+                    sizeText="text-xs"
                     onChange={(event) => setPrice(event.target.value)}
                     value={price}
                   />

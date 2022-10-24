@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { X } from 'phosphor-react'
 import { FormEvent, useState } from 'react'
 import { Button } from '~/components/Button'
-import { Header } from '~/components/Header'
+import { Header } from '~/components/headers/Header'
 import { InputLogin } from '~/components/InputLogin'
 import UseAuth from '~/hooks/useAuth'
 

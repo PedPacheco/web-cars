@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Step } from './Step'
+import { Step } from '../Step'
 
 export function VehicleRegistratonHeader() {
   return (

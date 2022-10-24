@@ -1,5 +1,5 @@
 import * as Separator from '@radix-ui/react-separator'
-import { Header } from '~/components/Header'
+import { Header } from '~/components/headers/Header'
 import { HomeSearchBox } from '~/components/HomeSearchBox'
 import { PriceBox } from '~/components/PriceBox'
 
