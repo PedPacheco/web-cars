@@ -1,11 +1,11 @@
-import { AddCarRepository } from "./../boundary/addCarBoundary";
+import { AddCarBoundary } from "./../boundary/addCarBoundary";
 
 export class AddCarUseCase {
-  constructor(private addCarRepository: AddCarRepository) {
-    this.addCarRepository = addCarRepository;
+  public constructor(private readonly boundary: AddCarBoundary) {
+    this.boundary = boundary;
   }
   execute() {
-    const response = this.addCarRepository.execute();
+    const response = this.boundary.execute();
     return response;
   }
 }

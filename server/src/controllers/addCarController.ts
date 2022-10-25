@@ -2,13 +2,13 @@ import { Request, Response } from "express";
 import { AddCarUseCase } from "./../useCases/addCarUseCaseUseCase";
 
 export class AddCarController {
-  constructor(private addCarUseCase: AddCarUseCase) {
-    this.addCarUseCase = addCarUseCase;
+  constructor(private useCase: AddCarUseCase) {
+    this.useCase = useCase;
   }
 
   handle(req: Request, res: Response) {
-    const response = this.addCarUseCase.execute();
+    const response = this.useCase.execute();
 
-    return res.status(201).json(response);
+    return response
   }
 }

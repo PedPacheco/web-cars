@@ -1,10 +1,8 @@
-import express from "express";
-import { AddCarAdapter } from "./adapters/addCarAdapter";
+import { Router } from "express";
+import { expressAdapter } from "./adapter";
 
-export const routes = express.Router();
+import { addCarModule } from "./modules/addCarModule";
 
-const addCarAdapter = new AddCarAdapter();
+export const routes = Router();
 
-routes.get("/cars", (req, res) => {
-  addCarAdapter.execute();
-});
+routes.get("/cars", expressAdapter(addCarModule));
