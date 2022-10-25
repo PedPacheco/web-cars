@@ -99,7 +99,7 @@ export default function Login() {
             </div>
             <p className="text-center text-zinc-100 mt-8">
               Não tem uma conta?
-              <Link href="/register">
+              <Link href="/cadastrar">
                 <a className="ml-1 font-bold text-brand-primary hover:text-brand-hover transition-colors">
                   Crie a sua
                 </a>

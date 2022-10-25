@@ -11,7 +11,7 @@ import {
 } from 'phosphor-react'
 import { useState } from 'react'
 import UseAuth from '~/hooks/useAuth'
-import perfil from '../assets/perfil.jpg'
+import perfil from '../../assets/perfil.jpg'
 import { ListItem } from '../ListItem'
 
 export function Header() {

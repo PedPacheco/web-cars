@@ -7,9 +7,10 @@ import { InputLogin } from '~/components/InputLogin'
 import UseAuth from '~/hooks/useAuth'
 
 export default function Register() {
-  const [url, setUrl] = useState('')
+  const [photoUrl, setPhotoUrl] = useState('')
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
+  const [cep, setCep] = useState<string>('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [checkPassword, setCheckPassword] = useState('')
@@ -22,7 +23,7 @@ export default function Register() {
       return console.error('senhas diferentes')
     }
 
-    registerWithEmailAndPassword(name, email, password, phone, url)
+    registerWithEmailAndPassword(name, email, password, cep, phone, photoUrl)
   }
 
   async function uploadImage(file: File) {
@@ -41,7 +42,7 @@ export default function Register() {
       )
 
       const data = await res.json()
-      setUrl(data.url)
+      setPhotoUrl(data.url)
     } catch (err) {
       console.log(err)
     }
@@ -84,6 +85,10 @@ export default function Register() {
                     type="tel"
                     text="Telefone"
                     onChange={(event) => setPhone(event.target.value)}
+                  />
+                  <InputLogin
+                    text="Cep"
+                    onChange={(event) => setCep(event.target.value)}
                   />
                   <InputLogin
                     text="Senha"

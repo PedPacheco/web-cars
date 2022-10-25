@@ -1,3 +1,4 @@
+import axios from 'axios'
 import {
   createUserWithEmailAndPassword,
   FacebookAuthProvider,
@@ -16,6 +17,7 @@ interface User {
   id: string
   name: string | null
   avatar: any
+  cep?: string
   email: string | null
   phone: string | null
 }
@@ -31,6 +33,7 @@ interface AuthContextData {
     name: string,
     email: string,
     password: string,
+    cep: string,
     phone: string,
     urlImage: string,
   ) => Promise<void>
@@ -84,6 +87,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const { email, displayName, phoneNumber, photoURL, uid } = result.user
         const token = await result.user.getIdToken()
 
+        const users = await axios.get('http://localhost:3333/users')
+
+        for (const user of users.data) {
+          if (user.id === uid) {
+            return
+          }
+        }
+
+        await axios.post('http://localhost:3333/users', {
+          name: displayName,
+          email,
+          password: '',
+          cep: '',
+          phone: phoneNumber,
+          id: uid,
+        })
+
         if (!displayName || !photoURL) {
           throw new Error('missing information from Google account')
         }
@@ -123,7 +143,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const { email, displayName, phoneNumber, photoURL, uid } = result.user
         const token = await result.user.getIdToken()
 
-        if (!displayName || !photoURL) {
+        if (!displayName) {
           throw new Error('missing information from account')
         }
 
@@ -156,6 +176,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     name: string,
     email: string,
     password: string,
+    cep: string,
     phone: string,
     urlImage: string,
   ) {
@@ -163,7 +184,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setLoading(true)
       const auth = getAuth()
 
-      if (!name || !urlImage) {
+      if (!name || !email) {
         return console.error('missing information from account')
       }
 
@@ -178,11 +199,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const { email, displayName, uid } = result.user
         const token = await result.user.getIdToken()
 
+        await axios.post('http://localhost:3333/users', {
+          name,
+          email,
+          password,
+          phone,
+          cep,
+          id: uid,
+        })
+
         setUser({
           id: uid,
           email,
           name: displayName,
           phone,
+          cep,
           avatar: urlImage,
         })
 
