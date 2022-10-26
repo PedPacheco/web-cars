@@ -98,8 +98,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         await axios.post('http://localhost:3333/users', {
           name: displayName,
           email,
-          password: '',
-          cep: '',
+          password: null,
+          cep: null,
           phone: phoneNumber,
           id: uid,
         })

@@ -1,6 +1,6 @@
 import { CreateUserBoundary } from "../boundary/CreateUserBoundary";
-import { prisma } from "../prisma";
 import { IUserRequest } from "../requests/UserRequest";
+import { prisma } from "./../prisma";
 
 export class CreateUserGateway implements CreateUserBoundary {
   public async execute({
@@ -15,10 +15,10 @@ export class CreateUserGateway implements CreateUserBoundary {
       data: {
         id,
         name,
-        cep,
+        cep: cep !== null ? cep : "",
         email,
-        password,
-        phone,
+        password: password !== null ? password : "",
+        phone: phone !== null ? phone : "",
       },
     });
 

@@ -12,7 +12,8 @@ import {
 import { useState } from 'react'
 import UseAuth from '~/hooks/useAuth'
 import perfil from '../../assets/perfil.jpg'
-import { ListItem } from '../ListItem'
+import { ListItem } from '../ListItems/ListItem'
+import { ListItemForModal } from '../ListItems/ListItemForModal'
 
 export function Header() {
   const { user, signout } = UseAuth()
@@ -89,38 +90,30 @@ export function Header() {
                   open ? 'block' : 'hidden'
                 } w-56 absolute top-[70px] left-[-180px] bg-brand-primary shadow-2xl transition-all`}
               >
-                <ul className="w-[100%] flex flex-col justify-center items-center">
-                  <li className="mt-3 flex items-center w-[70%]">
-                    <Car size={18} weight="bold" />
-                    <Link href="/vender-carro/especificacoes">
-                      <a className="font-bold text-zinc-100 text-sm md:w-auto px-3 py-2 rounded">
-                        Venda seu carro
-                      </a>
-                    </Link>
-                  </li>
-                  <li className="mt-3 flex items-center w-[70%]">
-                    <SoccerBall size={18} weight="bold" />
+                <ul className="w-[100%]">
+                  <ListItemForModal
+                    text="Venda seu carro"
+                    url="/vender-carro/especificacoes"
+                    icon={<Car size={18} weight="bold" className="mr-4" />}
+                  />
+                  <ListItemForModal
+                    text="Meus anuncios"
+                    url="/"
+                    icon={
+                      <SoccerBall size={18} weight="bold" className="mr-4" />
+                    }
+                  />
+                  <ListItemForModal
+                    text="Minha conta"
+                    url="/garagem/perfil"
+                    icon={
+                      <PencilSimple size={18} weight="bold" className="mr-4" />
+                    }
+                  />
+                  <li onClick={signout}>
                     <Link href="/">
-                      <a className="font-bold text-zinc-100 text-sm md:w-auto px-3 py-2 rounded">
-                        Meus anuncios
-                      </a>
-                    </Link>
-                  </li>
-                  <li className="mt-3 flex items-center w-[70%]">
-                    <PencilSimple size={18} weight="bold" />
-                    <Link href="/">
-                      <a className="font-bold text-zinc-100 text-sm md:w-auto px-3 py-2 rounded">
-                        Minha conta
-                      </a>
-                    </Link>
-                  </li>
-                  <li
-                    className="mt-3 mb-2 flex items-center w-[70%]"
-                    onClick={signout}
-                  >
-                    <SignOut size={18} weight="bold" />
-                    <Link href="/">
-                      <a className="font-bold text-zinc-100 text-sm md:w-auto px-3 py-2 rounded">
+                      <a className="h-12 w-full flex items-center cursor-pointer text-zinc-100 pr-5 pl-4">
+                        <SignOut size={18} weight="bold" className="mr-4" />
                         Sair
                       </a>
                     </Link>

@@ -49,14 +49,14 @@ export default function Informations() {
       <VehicleRegistratonHeader />
       <main className="min-h-[300px]">
         <section className="py-6">
-          <div className="w-[480px] mx-auto">
+          <div className="w-[calc(100%-34px)] lg:w-[480px] mx-auto">
             <h1 className="text-3xl mt-8 mb-6 text-center font-light text-zinc-100 leading-10">
               Conta mais do seu carro pra gente
             </h1>
 
             <div>
               <div className="w-full px-4">
-                <div className="w-96 mx-auto">
+                <div className="w-full lg:w-96 mx-auto">
                   <Input
                     text="Quanto seu carro já rodou?*"
                     placeholder="0 km"
@@ -67,7 +67,7 @@ export default function Informations() {
                 </div>
               </div>
               <div className="w-full px-4 pt-6">
-                <div className="w-96 mx-auto">
+                <div className="w-full lg:w-96 mx-auto">
                   <div className="w-full mb-0">
                     <div className="w-full pt-2 relative flex flex-col">
                       <label className=" text-zinc-400 text-sm">
@@ -91,7 +91,7 @@ export default function Informations() {
                 </div>
               </div>
               <div className="w-full px-4 pt-8">
-                <div className="w-96 mx-auto">
+                <div className="w-full lg:w-96 mx-auto">
                   <Input
                     text="Por quanto você quem vender seu carro?*"
                     placeholder="R$ 0 ,00"
