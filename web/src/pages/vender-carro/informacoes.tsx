@@ -2,8 +2,8 @@ import Link from 'next/link'
 import Router, { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
-import { VehicleRegistratonHeader } from '~/components/headers/VehicleRegistrationHeader'
 import { Input } from '~/components/Input'
+import { VehicleRegistratonHeader } from '~/components/VehicleRegistratonHeader'
 
 export default function Informations() {
   const router = useRouter()
@@ -60,7 +60,7 @@ export default function Informations() {
                   <Input
                     text="Quanto seu carro já rodou?*"
                     placeholder="0 km"
-                    sizeText="text-xs"
+                    sizetext="text-xs"
                     onChange={(event) => setKmTraveled(event.target.value)}
                     value={kmTraveled}
                   />
@@ -95,7 +95,7 @@ export default function Informations() {
                   <Input
                     text="Por quanto você quem vender seu carro?*"
                     placeholder="R$ 0 ,00"
-                    sizeText="text-xs"
+                    sizetext="text-xs"
                     onChange={(event) => setPrice(event.target.value)}
                     value={price}
                   />
@@ -114,7 +114,7 @@ export default function Informations() {
 
               <Link
                 href={{
-                  pathname: '/',
+                  pathname: '/vender-carro/usuario',
                 }}
               >
                 <button

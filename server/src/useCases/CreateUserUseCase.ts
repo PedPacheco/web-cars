@@ -1,5 +1,5 @@
 import { CreateUserBoundary } from "../boundary/CreateUserBoundary";
-import { IUserRequest } from "../requests/UserRequest";
+import { IUserRequest } from "../requests/CreateUserRequest";
 
 export class CreateUserUseCase {
   public constructor(private readonly boundary: CreateUserBoundary) {

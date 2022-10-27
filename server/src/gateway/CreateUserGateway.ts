@@ -1,5 +1,5 @@
 import { CreateUserBoundary } from "../boundary/CreateUserBoundary";
-import { IUserRequest } from "../requests/UserRequest";
+import { IUserRequest } from "../requests/CreateUserRequest";
 import { prisma } from "./../prisma";
 
 export class CreateUserGateway implements CreateUserBoundary {

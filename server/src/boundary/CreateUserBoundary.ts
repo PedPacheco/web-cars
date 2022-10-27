@@ -1,4 +1,4 @@
-import { IUserRequest } from "../requests/UserRequest";
+import { IUserRequest } from "../requests/CreateUserRequest";
 
 export interface CreateUserBoundary {
   execute: ({

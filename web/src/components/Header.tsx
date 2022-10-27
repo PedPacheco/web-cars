@@ -11,9 +11,9 @@ import {
 } from 'phosphor-react'
 import { useState } from 'react'
 import UseAuth from '~/hooks/useAuth'
-import perfil from '../../assets/perfil.jpg'
-import { ListItem } from '../ListItems/ListItem'
-import { ListItemForModal } from '../ListItems/ListItemForModal'
+import perfil from '../assets/perfil.jpg'
+import { ListItem } from './ListItem'
+import { ListItemForModal } from './ListItemForModal'
 
 export function Header() {
   const { user, signout } = UseAuth()

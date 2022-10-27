@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
-import { ListAllUsersBoundary } from "../boundary/ListAllUsersBoundary";
+import { GetAllUsersBoundary } from "../boundary/GetAllUsersBoundary";
 
 const prisma = new PrismaClient();
 
-export class ListAllUsersGateway implements ListAllUsersBoundary {
+export class GetAllUsersGateway implements GetAllUsersBoundary {
   public async execute() {
     const user = await prisma.users.findMany();
 

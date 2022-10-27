@@ -8,7 +8,7 @@ export class CreateUserController {
   handle(reqParams: any, reqQuery: any, reqBody: any) {
     const { name, email, phone, cep, password, id } = reqBody;
 
-    const user = this.useCase.execute({
+    return this.useCase.execute({
       id,
       name,
       cep,
@@ -16,12 +16,5 @@ export class CreateUserController {
       password,
       phone,
     });
-
-    const statusAndUser = {
-      status: 200,
-      user,
-    };
-
-    return statusAndUser;
   }
 }

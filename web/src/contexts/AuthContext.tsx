@@ -15,10 +15,10 @@ import { firebase } from '../lib/firebase'
 
 interface User {
   id: string
-  name: string | null
-  avatar: any
+  name: string
+  avatar: string | null
   cep?: string
-  email: string | null
+  email: string
   phone: string | null
 }
 
@@ -60,13 +60,24 @@ export function AuthProvider({ children }: AuthProviderProps) {
           maxAge: 30 * 24 * 60 * 60,
         })
       } else {
+        if (!user.email || !user.displayName) {
+          return console.error('missing information from account')
+        }
         const token = await user.getIdToken()
+
+        const response = await axios
+          .get(`http://localhost:3333/users/${user.uid}`)
+          .then((response) => {
+            return response.data
+          })
+
         setUser({
           id: user.uid,
           email: user.email,
           name: user.displayName,
-          phone: user.phoneNumber,
+          phone: response.phoneNumber,
           avatar: user.photoURL,
+          cep: response.cep,
         })
         nookies.set(undefined, 'token', token, {
           maxAge: 30 * 24 * 60 * 60,
@@ -104,7 +115,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           id: uid,
         })
 
-        if (!displayName || !photoURL) {
+        if (!displayName || !email) {
           throw new Error('missing information from Google account')
         }
 
@@ -140,10 +151,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const result = await signInWithEmailAndPassword(auth, email, passoword)
 
       if (result.user) {
-        const { email, displayName, phoneNumber, photoURL, uid } = result.user
+        const { email, displayName, photoURL, uid } = result.user
         const token = await result.user.getIdToken()
 
-        if (!displayName) {
+        const user = await axios
+          .get(`http://localhost:3333/users/${uid}`)
+          .then((response) => {
+            return response.data
+          })
+
+        if (!displayName || !email) {
           throw new Error('missing information from account')
         }
 
@@ -151,8 +168,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
           id: uid,
           email,
           name: displayName,
-          phone: phoneNumber,
+          phone: user.phone,
           avatar: photoURL,
+          cep: user.cep,
         })
 
         nookies.set(undefined, 'token', token, {
@@ -184,7 +202,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setLoading(true)
       const auth = getAuth()
 
-      if (!name || !email) {
+      if (!email || !password) {
         return console.error('missing information from account')
       }
 
@@ -207,6 +225,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
           cep,
           id: uid,
         })
+
+        if (!email || !displayName) {
+          return console.error('missing information from account')
+        }
 
         setUser({
           id: uid,

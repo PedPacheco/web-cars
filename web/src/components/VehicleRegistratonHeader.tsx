@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Router from 'next/router'
 import { ArrowLeft } from 'phosphor-react'
-import { Step } from '../Step'
+import { Step } from './Step'
 
 export function VehicleRegistratonHeader() {
   function returnForPreviousPage() {

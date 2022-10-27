@@ -2,8 +2,8 @@ import Link from 'next/link'
 import Router, { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
-import { VehicleRegistratonHeader } from '~/components/headers/VehicleRegistrationHeader'
 import { Input } from '~/components/Input'
+import { VehicleRegistratonHeader } from '~/components/VehicleRegistratonHeader'
 
 export default function Specifications() {
   const router = useRouter()
@@ -70,13 +70,13 @@ export default function Specifications() {
               <Input
                 text="Marca"
                 value={brand}
-                sizeText="text-lg"
+                sizetext="text-lg"
                 onChange={(event) => setBrand(event?.target.value)}
               />
               <Input
                 text="Modelo"
                 value={model}
-                sizeText="text-lg"
+                sizetext="text-lg"
                 onChange={(event) => setModel(event?.target.value)}
               />
               <div className="w-full mb-6 flex">
@@ -108,13 +108,13 @@ export default function Specifications() {
               <Input
                 text="Versão"
                 onChange={(event) => setVersion(event?.target.value)}
-                sizeText="text-lg"
+                sizetext="text-lg"
                 value={version}
               />
               <Input
                 text="Cor"
                 onChange={(event) => setColor(event?.target.value)}
-                sizeText="text-lg"
+                sizetext="text-lg"
                 value={color}
               />
             </div>
