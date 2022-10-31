@@ -1,4 +1,4 @@
-import { IUserRequest } from "../requests/CreateUserRequest";
+import { CreateUserRequest } from "./../requests/CreateUserRequest";
 
 export interface CreateUserBoundary {
   execute: ({
@@ -8,5 +8,5 @@ export interface CreateUserBoundary {
     password,
     phone,
     id,
-  }: IUserRequest) => Promise<any>;
+  }: CreateUserRequest) => Promise<any>;
 }

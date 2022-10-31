@@ -69,12 +69,14 @@ export default function Specifications() {
             <div className="w-full md:w-96 mx-auto">
               <Input
                 text="Marca"
+                padding="px-0"
                 value={brand}
                 sizetext="text-lg"
                 onChange={(event) => setBrand(event?.target.value)}
               />
               <Input
                 text="Modelo"
+                padding="px-0"
                 value={model}
                 sizetext="text-lg"
                 onChange={(event) => setModel(event?.target.value)}
@@ -107,12 +109,14 @@ export default function Specifications() {
               </div>
               <Input
                 text="Versão"
+                padding="px-0"
                 onChange={(event) => setVersion(event?.target.value)}
                 sizetext="text-lg"
                 value={version}
               />
               <Input
                 text="Cor"
+                padding="px-0"
                 onChange={(event) => setColor(event?.target.value)}
                 sizetext="text-lg"
                 value={color}

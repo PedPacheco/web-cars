@@ -112,7 +112,7 @@ export function Header() {
                   />
                   <li onClick={signout}>
                     <Link href="/">
-                      <a className="h-12 w-full flex items-center cursor-pointer text-zinc-100 pr-5 pl-4">
+                      <a className="h-12 w-full flex items-center cursor-pointer text-zinc-100 hover:text-zinc-400 transition-colors pr-5 pl-4">
                         <SignOut size={18} weight="bold" className="mr-4" />
                         Sair
                       </a>

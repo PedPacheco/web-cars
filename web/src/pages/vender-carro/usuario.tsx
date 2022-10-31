@@ -41,26 +41,31 @@ export default function User() {
               <div className="w-full lg:w-[380px] lg:mx-auto">
                 <Input
                   sizetext="text-xs"
+                  padding="px-0"
                   text="E-mail*"
                   disabled
                   value={user?.email || ''}
                 />
                 <Input
                   sizetext="text-xs"
+                  padding="px-0"
                   text="Nome Completo*"
                   disabled
                   value={user?.name || ''}
                 />
                 <Input
                   sizetext="text-xs"
+                  padding="px-0"
                   text="Telefone*"
-                  value={user?.phone || ''}
+                  disabled={!!user?.phone}
+                  value={phone || ''}
                   onChange={(event) => setPhone(event.target.value)}
                 />
                 <Input
                   sizetext="text-xs"
+                  padding="px-0"
                   text="Cep*"
-                  value={user?.cep || ''}
+                  value={cep || ''}
                   onChange={(event) => setCep(event.target.value)}
                 />
               </div>

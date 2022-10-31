@@ -60,6 +60,7 @@ export default function Informations() {
                   <Input
                     text="Quanto seu carro já rodou?*"
                     placeholder="0 km"
+                    padding="px-0"
                     sizetext="text-xs"
                     onChange={(event) => setKmTraveled(event.target.value)}
                     value={kmTraveled}
@@ -96,6 +97,7 @@ export default function Informations() {
                     text="Por quanto você quem vender seu carro?*"
                     placeholder="R$ 0 ,00"
                     sizetext="text-xs"
+                    padding="px-0"
                     onChange={(event) => setPrice(event.target.value)}
                     value={price}
                   />

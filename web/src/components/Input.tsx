@@ -3,11 +3,12 @@ import { InputHTMLAttributes } from 'react'
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   text: string
   sizetext: string
+  padding: string
 }
 
 export function Input(props: InputProps) {
   return (
-    <div className="w-full mb-6">
+    <div className={`w-full mb-6 ${props.padding}`}>
       <label className={`${props.sizetext} mb-1 text-zinc-400`}>
         {props.text}
       </label>

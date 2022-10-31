@@ -1,3 +1,4 @@
+import { CreateUserRequest } from "../requests/CreateUserRequest";
 import { CreateUserUseCase } from "../useCases/CreateUserUseCase";
 
 export class CreateUserController {
@@ -5,7 +6,7 @@ export class CreateUserController {
     this.useCase = useCase;
   }
 
-  handle(reqParams: any, reqQuery: any, reqBody: any) {
+  handle(reqParams: any, reqQuery: any, reqBody: CreateUserRequest) {
     const { name, email, phone, cep, password, id } = reqBody;
 
     return this.useCase.execute({

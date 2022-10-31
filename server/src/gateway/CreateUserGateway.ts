@@ -1,5 +1,5 @@
 import { CreateUserBoundary } from "../boundary/CreateUserBoundary";
-import { IUserRequest } from "../requests/CreateUserRequest";
+import { CreateUserRequest } from "../requests/CreateUserRequest";
 import { prisma } from "./../prisma";
 
 export class CreateUserGateway implements CreateUserBoundary {
@@ -10,7 +10,7 @@ export class CreateUserGateway implements CreateUserBoundary {
     password,
     phone,
     id,
-  }: IUserRequest) {
+  }: CreateUserRequest) {
     const user = await prisma.users.create({
       data: {
         id,

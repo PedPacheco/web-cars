@@ -79,7 +79,7 @@ export function HeaderMyGabage() {
               openModal ? 'opacity-100' : 'opacity-0'
             } absolute top-0 right-0 h-screen ${
               openModal ? 'z-50' : '-z-10'
-            } bg-zinc-700 transition-all duration-500`}
+            } bg-zinc-800 transition-all duration-500`}
           >
             <button
               className="absolute top-4 right-6 z-10"
@@ -87,7 +87,6 @@ export function HeaderMyGabage() {
             >
               <X size={18} weight="bold" />
             </button>
-
             <InformationUser />
           </div>
         </div>
