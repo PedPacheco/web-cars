@@ -1,16 +1,52 @@
+import * as Separator from '@radix-ui/react-separator'
+import axios from 'axios'
+import { useRouter } from 'next/router'
+import { parseCookies } from 'nookies'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { HeaderMyGabage } from '~/components/HeaderMyGabage'
 import { InformationUser } from '~/components/InformationsUser'
-import * as Separator from '@radix-ui/react-separator'
 import { Input } from '~/components/Input'
 import UseAuth from '~/hooks/useAuth'
-import { useState } from 'react'
 
 export default function Perfil() {
   const { user } = UseAuth()
-  const [name, setName] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [cep, setCep] = useState<string>('')
-  const [phone, setPhone] = useState('')
+  const { token } = parseCookies()
+  const router = useRouter()
+  const { register, handleSubmit, reset } = useForm()
+  const [state, setState] = useState<string>('')
+  const [city, setCity] = useState<string>('')
+
+  useEffect(() => {
+    if (token === '') {
+      router.push('/login')
+    }
+
+    reset({
+      name: user?.name,
+      email: user?.email,
+      cep: user?.cep,
+      phone: user?.phone,
+    })
+
+    async function searchCityAndState() {
+      if (user?.cep === '' || user?.cep === undefined) {
+        return
+      }
+
+      await axios
+        .get(`https://viacep.com.br/ws/${user?.cep}/json/`)
+        .then((response) => {
+          setState(response.data.uf)
+          setCity(response.data.localidade)
+        })
+    }
+    searchCityAndState()
+  }, [reset, router, token, user?.cep, user?.email, user?.name, user?.phone])
+
+  function onSumbit(data: any) {
+    console.log(data)
+  }
 
   return (
     <div>
@@ -37,34 +73,39 @@ export default function Perfil() {
               <Separator.Root className="w-full ml-3 border border-solid border-zinc-700" />
             </div>
             <div className="lg:max-w-[1199px] lg:pb-5">
-              <div className="w-full flex flex-col lg:flex-row justify-center">
-                <div className="lg:w-[calc(50%-12.5px)] max-w-[600px] pr-6">
+              <form
+                className="w-full flex flex-col lg:flex-row justify-center"
+                onSubmit={handleSubmit(onSumbit)}
+              >
+                <div className="lg:w-[calc(50%-12.5px)] lg:max-w-[600px] pr-6">
                   <h1 className="text-lg font-semibold text-zinc-300 pt-7 pb-2 px-4 mb-4 lg:pt-0 lg:pl-0">
                     Dados Pessoais
                   </h1>
                   <Input
-                    text="E-mail"
+                    text="Email"
+                    fieldname="email"
                     sizetext="text-sm"
                     padding="px-5 lg:px-0"
-                    value={user?.email}
+                    register={register}
                   />
                   <Input
                     text="Nome"
+                    fieldname="name"
                     sizetext="text-sm"
                     padding="px-5 lg:px-0"
-                    value={user?.name}
+                    register={register}
                   />
                 </div>
-                <div className="lg:w-[calc(50%-12.5px)] max-w-[600px]">
+                <div className="lg:w-[calc(50%-12.5px)] lg:max-w-[600px]">
                   <h2 className="text-lg font-semibold text-zinc-300 pt-7 pb-2 px-4 mb-4 lg:pt-0 lg:pl-0">
                     Endereço e contato
                   </h2>
                   <Input
                     padding="px-5 lg:px-0"
                     text="CEP*"
+                    fieldname="cep"
                     sizetext="text-sm"
-                    onChange={(event) => setCep(event.target.value)}
-                    value={user?.cep}
+                    register={register}
                   />
                   <div className="flex justify-center items-center px-5 lg:px-0 mb-6">
                     <div className="w-[calc(50%-12.5px)] pt-4 mr-6">
@@ -73,6 +114,8 @@ export default function Perfil() {
                       </label>
                       <input
                         type="text"
+                        disabled
+                        value={state}
                         className="w-full h-9 text-base border-b border-zinc-400 border-solid bg-transparent outline-0 focus:border-zinc-200 transition-colors disabled:opacity-50"
                       />
                     </div>
@@ -82,6 +125,8 @@ export default function Perfil() {
                       </label>
                       <input
                         type="text"
+                        disabled
+                        value={city}
                         className="w-full h-9 text-base border-b border-zinc-400 border-solid bg-transparent outline-0 focus:border-zinc-200 transition-colors disabled:opacity-50"
                       />
                     </div>
@@ -89,19 +134,22 @@ export default function Perfil() {
                   <Input
                     padding="px-5 lg:px-0"
                     sizetext="text-sm"
-                    text="Telefone"
-                    onChange={(event) => setPhone(event.target.value)}
-                    value={user?.phone || ''}
+                    fieldname="phone"
+                    text="Telefone*"
+                    register={register}
                   />
                   <div className="w-full px-5 lg:px-0 mb-6">
-                    <div className="w-full flex justify-center">
-                      <button className="w-full h-14 rounded-lg flex justify-center items-center px-1 font-medium bg-brand-primary hover:bg-brand-hover text-zinc-100 cursor-pointer">
+                    <div className="w-full flex justify-center lg:justify-start lg:mt-4">
+                      <button
+                        className="w-full h-14 lg:max-w-[230px] rounded-lg flex justify-center items-center px-1 font-medium bg-brand-primary hover:bg-brand-hover text-zinc-100 cursor-pointer"
+                        type="submit"
+                      >
                         Salvar alterações
                       </button>
                     </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </main>

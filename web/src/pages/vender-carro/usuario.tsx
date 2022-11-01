@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import Router, { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
 import { Input } from '~/components/Input'
 import { VehicleRegistratonHeader } from '~/components/VehicleRegistratonHeader'
 import UseAuth from '~/hooks/useAuth'
@@ -9,9 +10,8 @@ import UseAuth from '~/hooks/useAuth'
 export default function User() {
   const router = useRouter()
   const { token } = parseCookies()
+  const { register, handleSubmit, reset } = useForm()
   const { user } = UseAuth()
-  const [phone, setPhone] = useState<string | null | undefined>('')
-  const [cep, setCep] = useState<string | null | undefined>('')
 
   function returnForPreviousPage() {
     Router.back()
@@ -22,10 +22,13 @@ export default function User() {
       router.push('/login')
     }
 
-    setPhone(user?.phone)
-    setCep(user?.cep)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router, token])
+    reset({
+      name: user?.name,
+      email: user?.email,
+      cep: user?.cep || '',
+      phone: user?.phone || '',
+    })
+  }, [reset, router, token, user?.cep, user?.email, user?.name, user?.phone])
 
   return (
     <>
@@ -44,29 +47,31 @@ export default function User() {
                   padding="px-0"
                   text="E-mail*"
                   disabled
-                  value={user?.email || ''}
+                  register={register}
+                  fieldname="email"
                 />
                 <Input
                   sizetext="text-xs"
                   padding="px-0"
                   text="Nome Completo*"
+                  register={register}
                   disabled
-                  value={user?.name || ''}
+                  fieldname="name"
                 />
                 <Input
                   sizetext="text-xs"
                   padding="px-0"
                   text="Telefone*"
                   disabled={!!user?.phone}
-                  value={phone || ''}
-                  onChange={(event) => setPhone(event.target.value)}
+                  fieldname="phone"
+                  register={register}
                 />
                 <Input
                   sizetext="text-xs"
                   padding="px-0"
                   text="Cep*"
-                  value={cep || ''}
-                  onChange={(event) => setCep(event.target.value)}
+                  fieldname="cep"
+                  register={register}
                 />
               </div>
 

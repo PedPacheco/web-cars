@@ -2,15 +2,17 @@ import Link from 'next/link'
 import Router, { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { Input } from '~/components/Input'
 import { VehicleRegistratonHeader } from '~/components/VehicleRegistratonHeader'
 
 export default function Informations() {
   const router = useRouter()
   const { token } = parseCookies()
+  const { register, watch, reset } = useForm()
   const [description, setDescription] = useState('')
-  const [kmTraveled, setKmTraveled] = useState('')
-  const [price, setPrice] = useState('')
+  const price = watch('price')
+  const kmTraveled = watch('kmTraveled')
 
   function returnForPreviousPage() {
     Router.back()
@@ -22,10 +24,13 @@ export default function Informations() {
     }
 
     const vehicleData = JSON.parse(localStorage.getItem('vehicleData') || '{}')
+    reset({
+      kmTraveled: vehicleData.kmTraveled,
+
+      price: vehicleData.price,
+    })
     setDescription(vehicleData.description)
-    setPrice(vehicleData.price)
-    setKmTraveled(vehicleData.kmTraveled)
-  }, [token, router])
+  }, [token, router, reset])
 
   function saveInLocalStorage() {
     const vehicleData = JSON.parse(localStorage.getItem('vehicleData') || '{}')
@@ -62,8 +67,8 @@ export default function Informations() {
                     placeholder="0 km"
                     padding="px-0"
                     sizetext="text-xs"
-                    onChange={(event) => setKmTraveled(event.target.value)}
-                    value={kmTraveled}
+                    register={register}
+                    fieldname="kmTraveled"
                   />
                 </div>
               </div>
@@ -98,8 +103,8 @@ export default function Informations() {
                     placeholder="R$ 0 ,00"
                     sizetext="text-xs"
                     padding="px-0"
-                    onChange={(event) => setPrice(event.target.value)}
-                    value={price}
+                    register={register}
+                    fieldname="price"
                   />
                 </div>
               </div>

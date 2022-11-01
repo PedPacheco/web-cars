@@ -74,9 +74,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
           id: user.uid,
           email: user.email,
           name: user.displayName,
-          phone: response.phone,
+          phone: response?.phone,
           avatar: user.photoURL,
-          cep: response.cep,
+          cep: response?.cep,
         })
 
         nookies.set(undefined, 'token', token, {
@@ -168,9 +168,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
           id: uid,
           email,
           name: displayName,
-          phone: user.phone,
+          phone: user?.phone,
           avatar: photoURL,
-          cep: user.cep,
+          cep: user?.cep,
         })
 
         nookies.set(undefined, 'token', token, {
