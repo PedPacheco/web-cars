@@ -9,7 +9,6 @@ export class GetUserByIdUseCase {
     const response = this.boundary.execute({
       id,
     });
-
     return response;
   }
 }

@@ -49,7 +49,6 @@ const AuthContext = createContext({} as AuthContextData)
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
-
   useEffect(() => {
     const auth = getAuth()
 
@@ -75,10 +74,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
           id: user.uid,
           email: user.email,
           name: user.displayName,
-          phone: response.phoneNumber,
+          phone: response.phone,
           avatar: user.photoURL,
           cep: response.cep,
         })
+
         nookies.set(undefined, 'token', token, {
           maxAge: 30 * 24 * 60 * 60,
         })

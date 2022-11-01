@@ -42,7 +42,7 @@ export function HeaderMyGabage() {
           </Link>
           <div>
             <Separator.Root
-              className="flex mx-12 border h-9 border-solid border-zinc-700 "
+              className="flex mx-12 border h-9 border-solid border-zinc-500 "
               data-orientation="vertical"
             />
           </div>
