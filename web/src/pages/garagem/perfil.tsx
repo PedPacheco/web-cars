@@ -9,11 +9,18 @@ import { InformationUser } from '~/components/InformationsUser'
 import { Input } from '~/components/Input'
 import UseAuth from '~/hooks/useAuth'
 
+type FormValues = {
+  name: string
+  email: string
+  cep: string
+  phone: string
+}
+
 export default function Perfil() {
   const { user } = UseAuth()
   const { token } = parseCookies()
   const router = useRouter()
-  const { register, handleSubmit, reset } = useForm()
+  const { register, reset, handleSubmit } = useForm()
   const [state, setState] = useState<string>('')
   const [city, setCity] = useState<string>('')
 
@@ -21,7 +28,6 @@ export default function Perfil() {
     if (token === '') {
       router.push('/login')
     }
-
     reset({
       name: user?.name,
       email: user?.email,
@@ -44,8 +50,14 @@ export default function Perfil() {
     searchCityAndState()
   }, [reset, router, token, user?.cep, user?.email, user?.name, user?.phone])
 
-  function onSumbit(data: any) {
-    console.log(data)
+  async function updateUser(data: any) {
+    const { cep, email, name, phone } = data
+    await axios.put(`http://localhost:3333/users/${user?.id}`, {
+      name,
+      email,
+      cep,
+      phone,
+    })
   }
 
   return (
@@ -74,8 +86,8 @@ export default function Perfil() {
             </div>
             <div className="lg:max-w-[1199px] lg:pb-5">
               <form
+                onSubmit={handleSubmit(updateUser)}
                 className="w-full flex flex-col lg:flex-row justify-center"
-                onSubmit={handleSubmit(onSumbit)}
               >
                 <div className="lg:w-[calc(50%-12.5px)] lg:max-w-[600px] pr-6">
                   <h1 className="text-lg font-semibold text-zinc-300 pt-7 pb-2 px-4 mb-4 lg:pt-0 lg:pl-0">

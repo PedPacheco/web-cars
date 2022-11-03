@@ -9,15 +9,20 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   register: UseFormRegister<FieldValues>
 }
 
-export function Input(props: InputProps) {
+export function Input({
+  fieldname,
+  padding,
+  register,
+  sizetext,
+  text,
+  ...props
+}: InputProps) {
   return (
-    <div className={`w-full mb-6 ${props.padding}`}>
-      <label className={`${props.sizetext} mb-1 text-zinc-400`}>
-        {props.text}
-      </label>
+    <div className={`w-full mb-6 ${padding}`}>
+      <label className={`${sizetext} mb-1 text-zinc-400`}>{text}</label>
       <input
         type="text"
-        {...props.register(props.fieldname)}
+        {...register(fieldname)}
         className="w-full h-9 text-base border-b border-zinc-400 border-solid bg-transparent outline-0 focus:border-zinc-200 transition-colors disabled:opacity-50"
         {...props}
       />

@@ -1,14 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import Router from 'next/router'
 import { ArrowLeft } from 'phosphor-react'
+import returnPreviousPage from '~/utils/returnPreviousPage'
 import { Step } from './Step'
 
 export function VehicleRegistratonHeader() {
-  function returnForPreviousPage() {
-    Router.back()
-  }
-
   return (
     <header className="w-full flex border-b border-zinc-700 bg-zinc-800">
       <div className=" w-[calc(100%-40px)] xl:w-[1280px] mx-auto relative flex items-center flex-wrap justify-center">
@@ -35,7 +31,7 @@ export function VehicleRegistratonHeader() {
         <div className="w-full lg:w-[1170px] mx-auto relative">
           <button
             className="block md:hidden absolute top-5"
-            onClick={returnForPreviousPage}
+            onClick={returnPreviousPage}
           >
             <ArrowLeft size={20} />
           </button>

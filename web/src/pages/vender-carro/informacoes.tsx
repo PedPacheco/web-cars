@@ -1,10 +1,11 @@
 import Link from 'next/link'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Input } from '~/components/Input'
 import { VehicleRegistratonHeader } from '~/components/VehicleRegistratonHeader'
+import returnPreviousPage from '~/utils/returnPreviousPage'
 
 export default function Informations() {
   const router = useRouter()
@@ -14,19 +15,13 @@ export default function Informations() {
   const price = watch('price')
   const kmTraveled = watch('kmTraveled')
 
-  function returnForPreviousPage() {
-    Router.back()
-  }
-
   useEffect(() => {
     if (token === '') {
       router.push('/login')
     }
-
     const vehicleData = JSON.parse(localStorage.getItem('vehicleData') || '{}')
     reset({
       kmTraveled: vehicleData.kmTraveled,
-
       price: vehicleData.price,
     })
     setDescription(vehicleData.description)
@@ -114,7 +109,7 @@ export default function Informations() {
             <div className="fixed bottom-0 left-0 z-10 w-full flex md:w-[380px] md:mt-10 md:static md:mx-auto ">
               <button
                 className="hidden w-full bg-zinc-400 flex-grow h-12 cursor-pointer text-lg border-none hover:bg-zinc-300 transition-colors md:block"
-                onClick={returnForPreviousPage}
+                onClick={returnPreviousPage}
               >
                 Voltar
               </button>

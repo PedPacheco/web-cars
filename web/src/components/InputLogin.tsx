@@ -4,7 +4,7 @@ interface InputLoginProps extends InputHTMLAttributes<HTMLInputElement> {
   text: string
 }
 
-export function InputLogin(props: InputLoginProps) {
+export function InputLogin({ text, ...props }: InputLoginProps) {
   return (
     <div className="mb-8">
       <div className="relative rounded-lg h-14 mt-3 lg:h-12">
@@ -13,10 +13,10 @@ export function InputLogin(props: InputLoginProps) {
           className="w-full h-full py-3 pr-11 pl-4 rounded-lg border-2 border-zinc-400 bg-zinc-800"
         />
         <label
-          htmlFor={props.text}
+          htmlFor={text}
           className="absolute left-3 top-[-12px] px-2 text-zinc-400 text-base bg-zinc-800"
         >
-          {props.text}
+          {text}
         </label>
       </div>
     </div>

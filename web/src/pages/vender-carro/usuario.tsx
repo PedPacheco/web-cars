@@ -1,21 +1,18 @@
 import Link from 'next/link'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Input } from '~/components/Input'
 import { VehicleRegistratonHeader } from '~/components/VehicleRegistratonHeader'
 import UseAuth from '~/hooks/useAuth'
+import returnPreviousPage from '~/utils/returnPreviousPage'
 
 export default function User() {
   const router = useRouter()
   const { token } = parseCookies()
-  const { register, handleSubmit, reset } = useForm()
+  const { register, reset, handleSubmit } = useForm()
   const { user } = UseAuth()
-
-  function returnForPreviousPage() {
-    Router.back()
-  }
 
   useEffect(() => {
     if (token === '') {
@@ -30,6 +27,10 @@ export default function User() {
     })
   }, [reset, router, token, user?.cep, user?.email, user?.name, user?.phone])
 
+  function onSubmit(data: any) {
+    console.log(data)
+  }
+
   return (
     <>
       <VehicleRegistratonHeader />
@@ -40,7 +41,7 @@ export default function User() {
               Fale um pouco sobre você
             </h1>
 
-            <div>
+            <div onSubmit={handleSubmit(onSubmit)}>
               <div className="w-full lg:w-[380px] lg:mx-auto">
                 <Input
                   sizetext="text-xs"
@@ -79,7 +80,7 @@ export default function User() {
                 <div className="fixed bottom-0 left-0 z-10 w-full flex md:w-[380px] md:mt-10 md:static md:mx-auto ">
                   <button
                     className="hidden w-full bg-zinc-400 flex-grow h-12 cursor-pointer text-lg border-none hover:bg-zinc-300 transition-colors md:block"
-                    onClick={returnForPreviousPage}
+                    onClick={returnPreviousPage}
                   >
                     Voltar
                   </button>
@@ -89,7 +90,10 @@ export default function User() {
                       pathname: '/vender-carro/usuario',
                     }}
                   >
-                    <button className="w-full bg-brand-primary flex-grow h-12 cursor-pointer text-lg border-none hover:bg-brand-hover transition-colors md:ml-5">
+                    <button
+                      className="w-full bg-brand-primary flex-grow h-12 cursor-pointer text-lg border-none hover:bg-brand-hover transition-colors md:ml-5"
+                      type="submit"
+                    >
                       Continuar
                     </button>
                   </Link>

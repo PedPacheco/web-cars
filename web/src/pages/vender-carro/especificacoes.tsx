@@ -1,26 +1,25 @@
 import Link from 'next/link'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { Input } from '~/components/Input'
 import { VehicleRegistratonHeader } from '~/components/VehicleRegistratonHeader'
+import returnPreviousPage from '~/utils/returnPreviousPage'
 
 export default function Specifications() {
   const router = useRouter()
   const { token } = parseCookies()
-  const [brand, setBrand] = useState<string>('')
-  const [model, setModel] = useState<string>('')
+  const { register, reset, watch } = useForm()
   const [modelYear, setModelYear] = useState<string>('')
   const [yearOfManufacture, setYearOfManufacture] = useState<string>('')
-  const [version, setVersion] = useState<string>('')
-  const [color, setColor] = useState<string>('')
-  const [description, setDescription] = useState<string>('')
-  const [kmTraveled, setKmTraveled] = useState<string>('')
-  const [price, setPrice] = useState<string>('')
-
-  function returnForPreviousPage() {
-    Router.back()
-  }
+  const [description, setDescription] = useState('')
+  const brand = watch('brand')
+  const model = watch('model')
+  const version = watch('version')
+  const color = watch('color')
+  const price = watch('price')
+  const kmTraveled = watch('kmTraveled')
 
   function saveInLocalStorage() {
     localStorage.setItem(
@@ -33,8 +32,8 @@ export default function Specifications() {
         version,
         color,
         kmTraveled,
-        description,
         price,
+        description,
       }),
     )
   }
@@ -45,16 +44,18 @@ export default function Specifications() {
     }
 
     const vehicleData = JSON.parse(localStorage.getItem('vehicleData') || '{}')
-    setBrand(vehicleData.brand)
-    setModel(vehicleData.model)
+    reset({
+      brand: vehicleData.brand,
+      model: vehicleData.model,
+      version: vehicleData.version,
+      color: vehicleData.color,
+      price: vehicleData.price,
+      kmTraveled: vehicleData.kmTraveled,
+    })
     setModelYear(vehicleData.modelYear)
     setYearOfManufacture(vehicleData.yearOfManufacture)
-    setVersion(vehicleData.version)
-    setColor(vehicleData.color)
     setDescription(vehicleData.description)
-    setPrice(vehicleData.price)
-    setKmTraveled(vehicleData.kmTraveled)
-  }, [token, router])
+  }, [token, router, reset])
 
   return (
     <>
@@ -70,16 +71,16 @@ export default function Specifications() {
               <Input
                 text="Marca"
                 padding="px-0"
-                value={brand}
                 sizetext="text-lg"
-                onChange={(event) => setBrand(event?.target.value)}
+                fieldname="brand"
+                register={register}
               />
               <Input
                 text="Modelo"
                 padding="px-0"
-                value={model}
                 sizetext="text-lg"
-                onChange={(event) => setModel(event?.target.value)}
+                register={register}
+                fieldname="model"
               />
               <div className="w-full mb-6 flex">
                 <div className="w-[calc(50%-17px)] mr-8">
@@ -110,16 +111,16 @@ export default function Specifications() {
               <Input
                 text="Versão"
                 padding="px-0"
-                onChange={(event) => setVersion(event?.target.value)}
                 sizetext="text-lg"
-                value={version}
+                register={register}
+                fieldname="version"
               />
               <Input
                 text="Cor"
                 padding="px-0"
-                onChange={(event) => setColor(event?.target.value)}
                 sizetext="text-lg"
-                value={color}
+                register={register}
+                fieldname="color"
               />
             </div>
 
@@ -127,7 +128,7 @@ export default function Specifications() {
               <div className="fixed bottom-0 left-0 z-10 w-full flex md:w-[380px] md:mt-10 md:static md:mx-auto ">
                 <button
                   className="hidden w-full bg-zinc-400 flex-grow h-12 cursor-pointer text-lg border-none hover:bg-zinc-300 transition-colors md:block"
-                  onClick={returnForPreviousPage}
+                  onClick={returnPreviousPage}
                 >
                   Voltar
                 </button>
