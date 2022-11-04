@@ -1,3 +1,4 @@
+import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
@@ -27,8 +28,15 @@ export default function User() {
     })
   }, [reset, router, token, user?.cep, user?.email, user?.name, user?.phone])
 
-  function onSubmit(data: any) {
-    console.log(data)
+  async function onSubmit(data: any) {
+    const { cep, phone } = data
+
+    if (!!cep || !!phone) {
+      await axios.put(`http://localhost:3333/users/${user?.id}`, {
+        cep,
+        phone,
+      })
+    }
   }
 
   return (
@@ -41,7 +49,7 @@ export default function User() {
               Fale um pouco sobre você
             </h1>
 
-            <div onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="w-full lg:w-[380px] lg:mx-auto">
                 <Input
                   sizetext="text-xs"
@@ -71,6 +79,7 @@ export default function User() {
                   sizetext="text-xs"
                   padding="px-0"
                   text="Cep*"
+                  disabled={!!user?.cep}
                   fieldname="cep"
                   register={register}
                 />
@@ -99,7 +108,7 @@ export default function User() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </section>
       </main>

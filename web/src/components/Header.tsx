@@ -88,7 +88,7 @@ export function Header() {
               <div
                 className={`${
                   open ? 'block' : 'hidden'
-                } w-56 absolute top-[70px] left-[-180px] bg-brand-primary shadow-2xl transition-all`}
+                } w-56 absolute top-[70px] left-[-180px] bg-brand-primary rounded shadow-2xl transition-all`}
               >
                 <ul className="w-[100%]">
                   <ListItemForModal

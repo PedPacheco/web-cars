@@ -40,7 +40,7 @@ export function InformationUser() {
           />
           <ListItemForModal
             text="Vender meu veículo"
-            url="/"
+            url="/vender-carro/especificacoes"
             icon={<CurrencyDollar className="mr-5" size={24} weight="bold" />}
           />
           <ListItemForModal
@@ -50,7 +50,7 @@ export function InformationUser() {
           />
           <ListItemForModal
             text="Minha conta"
-            url="/"
+            url="/garagem/perfil"
             icon={<User className="mr-5" size={24} weight="bold" />}
           />
           <li onClick={signout}>

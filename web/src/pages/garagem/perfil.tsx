@@ -1,6 +1,6 @@
 import * as Separator from '@radix-ui/react-separator'
 import axios from 'axios'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -8,13 +8,6 @@ import { HeaderMyGabage } from '~/components/HeaderMyGabage'
 import { InformationUser } from '~/components/InformationsUser'
 import { Input } from '~/components/Input'
 import UseAuth from '~/hooks/useAuth'
-
-type FormValues = {
-  name: string
-  email: string
-  cep: string
-  phone: string
-}
 
 export default function Perfil() {
   const { user } = UseAuth()
@@ -58,6 +51,8 @@ export default function Perfil() {
       cep,
       phone,
     })
+
+    Router.reload()
   }
 
   return (
