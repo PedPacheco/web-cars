@@ -1,5 +1,4 @@
 import axios from 'axios'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect } from 'react'
@@ -31,7 +30,7 @@ export default function User() {
   async function onSubmit(data: any) {
     const { cep, phone } = data
 
-    if (!!cep || !!phone) {
+    if (cep || phone) {
       await axios.put(`http://localhost:3333/users/${user?.id}`, {
         cep,
         phone,
@@ -94,18 +93,12 @@ export default function User() {
                     Voltar
                   </button>
 
-                  <Link
-                    href={{
-                      pathname: '/vender-carro/usuario',
-                    }}
+                  <button
+                    className="w-full bg-brand-primary flex-grow h-12 cursor-pointer text-lg border-none hover:bg-brand-hover transition-colors md:ml-5"
+                    type="submit"
                   >
-                    <button
-                      className="w-full bg-brand-primary flex-grow h-12 cursor-pointer text-lg border-none hover:bg-brand-hover transition-colors md:ml-5"
-                      type="submit"
-                    >
-                      Continuar
-                    </button>
-                  </Link>
+                    Continuar
+                  </button>
                 </div>
               </div>
             </form>

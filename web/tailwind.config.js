@@ -10,6 +10,10 @@ module.exports = {
         'brand-primary': '#8257E5',
         'brand-hover': '#996DFF',
       },
+      backgroundPosition: {
+        'center-top-45': 'center top 45px',
+        'center-top': 'center top',
+      },
     },
   },
   plugins: [],
