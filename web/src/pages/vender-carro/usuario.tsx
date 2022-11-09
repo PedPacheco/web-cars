@@ -27,6 +27,7 @@ export default function User() {
     })
   }, [reset, router, token, user?.cep, user?.email, user?.name, user?.phone])
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function onSubmit(data: any) {
     const { cep, phone } = data
 
@@ -36,6 +37,8 @@ export default function User() {
         phone,
       })
     }
+
+    router.push('/vender-carro/fotos')
   }
 
   return (
