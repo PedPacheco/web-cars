@@ -18,6 +18,7 @@ export default function Informations() {
   useEffect(() => {
     if (token === '') {
       router.push('/login')
+      return
     }
     const vehicleData = JSON.parse(localStorage.getItem('vehicleData') || '{}')
     reset({
@@ -25,7 +26,7 @@ export default function Informations() {
       price: vehicleData.price,
     })
     setDescription(vehicleData.description)
-  }, [token, router, reset])
+  }, [reset, router, token])
 
   function saveInLocalStorage() {
     const vehicleData = JSON.parse(localStorage.getItem('vehicleData') || '{}')
@@ -44,6 +45,7 @@ export default function Informations() {
       }),
     )
   }
+
   return (
     <>
       <VehicleRegistratonHeader />
@@ -64,6 +66,7 @@ export default function Informations() {
                     sizetext="text-xs"
                     register={register}
                     fieldname="kmTraveled"
+                    type="number"
                   />
                 </div>
               </div>
@@ -100,6 +103,7 @@ export default function Informations() {
                     padding="px-0"
                     register={register}
                     fieldname="price"
+                    type="number"
                   />
                 </div>
               </div>

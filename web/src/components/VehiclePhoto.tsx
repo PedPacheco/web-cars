@@ -21,7 +21,6 @@ export function VehiclePhoto({
     if (!id) {
       return
     }
-
     setPublicId(id)
   }, [id])
 
@@ -29,7 +28,7 @@ export function VehiclePhoto({
     <div className="w-[140px] h-44 mx-2">
       {imageUrl !== defaultUrl ? (
         <div
-          className="w-[140px] h-[140px] relative rounded cursor-pointer bg-white bg-no-repeat bg-center-top bg-contain"
+          className="w-[140px] h-[140px] relative rounded cursor-pointer bg-white bg-no-repeat bg-center-top bg-[length:140px_140px]"
           style={{ backgroundImage: `url(${imageUrl})` }}
           id={publicId}
         >

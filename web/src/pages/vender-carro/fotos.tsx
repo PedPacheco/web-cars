@@ -14,17 +14,15 @@ export default function Photos() {
   const [photos, setPhotos] = useState<Photos[]>([])
 
   useEffect(() => {
-    const savedPhotos = JSON.parse(localStorage.getItem('photos') || '{}')
-    if (savedPhotos !== {}) {
-      return
-    }
-    localStorage.setItem('photos', JSON.stringify(photos))
-  }, [photos])
-
-  useEffect(() => {
-    const savedPhotos = JSON.parse(localStorage.getItem('photos') || '{}')
+    const savedPhotos = JSON.parse(localStorage.getItem('photos') || '[]')
     setPhotos(savedPhotos)
   }, [])
+
+  useEffect(() => {
+    if (photos.length !== 0) {
+      localStorage.setItem('photos', JSON.stringify(photos))
+    }
+  }, [photos])
 
   async function handleAddPhoto(file: File) {
     const formData = new FormData()

@@ -18,7 +18,6 @@ export default function User() {
     if (token === '') {
       router.push('/login')
     }
-
     reset({
       name: user?.name,
       email: user?.email,
@@ -37,10 +36,7 @@ export default function User() {
         phone,
       })
     }
-
-    router.push('/vender-carro/fotos')
   }
-
   return (
     <>
       <VehicleRegistratonHeader />
@@ -99,6 +95,7 @@ export default function User() {
                   <button
                     className="w-full bg-brand-primary flex-grow h-12 cursor-pointer text-lg border-none hover:bg-brand-hover transition-colors md:ml-5"
                     type="submit"
+                    onClick={() => router.push('/vender-carro/fotos')}
                   >
                     Continuar
                   </button>

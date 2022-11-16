@@ -18,4 +18,21 @@ model Users {
   password String
   phone    String
   cep      String
+  vehicles Vehicles[]
+}
+
+model Vehicles {
+  id String @id @unique
+
+  user              Users  @relation(fields: [userId], references: [id])
+  userId            String
+  brand             String
+  model             String
+  modelYear         String
+  yearOfManufacture String
+  version           String
+  color             String
+  kmTraveled        Int
+  description       String
+  price             Int
 }
