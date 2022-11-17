@@ -22,17 +22,18 @@ model Users {
 }
 
 model Vehicles {
-  id String @id @unique
+  id Int @id @default(autoincrement())
 
   user              Users  @relation(fields: [userId], references: [id])
   userId            String
   brand             String
   model             String
-  modelYear         String
-  yearOfManufacture String
+  modelYear         Int
+  yearOfManufacture Int
   version           String
   color             String
   kmTraveled        Int
   description       String
   price             Int
+  photos            Json?
 }

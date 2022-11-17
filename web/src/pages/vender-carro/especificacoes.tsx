@@ -88,7 +88,7 @@ export default function Specifications() {
                     Ano do modelo
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     value={modelYear}
                     className="w-full h-9 text-base border-b border-zinc-400 border-solid bg-transparent outline-0 focus:border-zinc-200 transition-colors"
                     onChange={(event) => setModelYear(event.target.value)}
@@ -99,7 +99,7 @@ export default function Specifications() {
                     Ano de fabricação
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     value={yearOfManufacture}
                     className="w-full h-9 text-base border-b border-zinc-400 border-solid bg-transparent outline-0 focus:border-zinc-200 transition-colors"
                     onChange={(event) =>

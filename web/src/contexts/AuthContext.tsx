@@ -214,7 +214,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       })
 
       if (result.user) {
-        const { email, displayName, uid } = result.user
+        const { email, uid } = result.user
         const token = await result.user.getIdToken()
 
         await axios.post('http://localhost:3333/users', {
@@ -226,14 +226,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
           id: uid,
         })
 
-        if (!email || !displayName) {
+        if (!email || !name) {
           return console.error('missing information from account')
         }
 
         setUser({
           id: uid,
           email,
-          name: displayName,
+          name,
           phone,
           cep,
           avatar: urlImage,
@@ -251,7 +251,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         })
       }
     } finally {
-      Router.back()
+      Router.push('/')
       setLoading(false)
     }
   }
