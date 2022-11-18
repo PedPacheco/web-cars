@@ -6,6 +6,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   sizetext: string
   padding: string
   fieldname: string
+  rules?: object
   register: UseFormRegister<FieldValues>
 }
 
@@ -15,6 +16,7 @@ export function Input({
   register,
   sizetext,
   text,
+  rules,
   ...props
 }: InputProps) {
   return (
@@ -22,7 +24,7 @@ export function Input({
       <label className={`${sizetext} mb-1 text-zinc-400`}>{text}</label>
       <input
         type="text"
-        {...register(fieldname)}
+        {...register(fieldname, { ...rules })}
         className="w-full h-9 text-base border-b border-zinc-400 border-solid bg-transparent outline-0 focus:border-zinc-200 transition-colors disabled:opacity-50"
         {...props}
       />

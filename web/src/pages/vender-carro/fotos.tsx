@@ -1,8 +1,10 @@
 import * as Separator from '@radix-ui/react-separator'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { VehiclePhoto } from '~/components/VehiclePhoto'
 import { VehicleRegistratonHeader } from '~/components/VehicleRegistratonHeader'
+import UseAuth from '~/hooks/useAuth'
 import returnPreviousPage from '~/utils/returnPreviousPage'
 
 interface Photos {
@@ -10,11 +12,30 @@ interface Photos {
   publicId: string
 }
 
+interface VehicleData {
+  userId: string
+  brand: string
+  model: string
+  modelYear: string
+  version: string
+  yearOfManufacture: string
+  color: string
+  kmTraveled: string
+  description: string
+  price: string
+  photos: JSON
+}
+
 export default function Photos() {
+  const router = useRouter()
+  const { user } = UseAuth()
   const [photos, setPhotos] = useState<Photos[]>([])
+  const [vehicleData, setVehicleData] = useState({} as VehicleData)
 
   useEffect(() => {
     const savedPhotos = JSON.parse(localStorage.getItem('photos') || '[]')
+    const vehicleData = JSON.parse(localStorage.getItem('vehicleData') || '{}')
+    setVehicleData(vehicleData)
     setPhotos(savedPhotos)
   }, [])
 
@@ -57,6 +78,34 @@ export default function Photos() {
     if (response.data === 'ok') {
       setPhotos(photos.filter((photo) => photo.publicId !== publicId))
     }
+  }
+
+  async function saveAdVehicle() {
+    const response = await axios
+      .post('http://localhost:3333/vehicles', {
+        userId: user?.id,
+        brand: vehicleData.brand,
+        model: vehicleData.model,
+        modelYear: Number(vehicleData.modelYear),
+        yearOfManufacture: Number(vehicleData.yearOfManufacture),
+        version: vehicleData.version,
+        color: vehicleData.color,
+        kmTraveled: Number(vehicleData.kmTraveled),
+        description: vehicleData.description,
+        price: Number(vehicleData.price),
+        photos,
+      })
+      .catch((error) => {
+        console.log(error)
+        // const status = error.response.status
+
+        // if (status === 422) {
+        //   return console.log('Informações do veiculo insuficientes')
+        // }
+      })
+    console.log(response)
+
+    // router.push('/')
   }
 
   return (
@@ -227,7 +276,10 @@ export default function Photos() {
                 Voltar
               </button>
 
-              <button className="w-full bg-brand-primary flex-grow h-12 cursor-pointer text-sm font-medium border-none hover:bg-brand-hover transition-colors md:ml-5">
+              <button
+                onClick={saveAdVehicle}
+                className="w-full bg-brand-primary flex-grow h-12 cursor-pointer text-sm font-medium border-none hover:bg-brand-hover transition-colors md:ml-5"
+              >
                 {photos.length !== 0 ? 'Continuar' : 'Inserir fotos depois'}
               </button>
             </div>

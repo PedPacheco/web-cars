@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { ErrorMessage } from '@hookform/error-message'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
@@ -10,9 +10,13 @@ import returnPreviousPage from '~/utils/returnPreviousPage'
 export default function Specifications() {
   const router = useRouter()
   const { token } = parseCookies()
-  const { register, reset, watch } = useForm()
-  const [modelYear, setModelYear] = useState<string>('')
-  const [yearOfManufacture, setYearOfManufacture] = useState<string>('')
+  const {
+    register,
+    reset,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
   const [description, setDescription] = useState('')
   const brand = watch('brand')
   const model = watch('model')
@@ -20,7 +24,10 @@ export default function Specifications() {
   const color = watch('color')
   const price = watch('price')
   const kmTraveled = watch('kmTraveled')
+  const yearOfManufacture = watch('yearOfManufacture')
+  const modelYear = watch('modelYear')
 
+  console.log(errors)
   function saveInLocalStorage() {
     localStorage.setItem(
       'vehicleData',
@@ -36,6 +43,8 @@ export default function Specifications() {
         description,
       }),
     )
+
+    router.push('/vender-carro/informacoes')
   }
 
   useEffect(() => {
@@ -51,9 +60,9 @@ export default function Specifications() {
       color: vehicleData.color,
       price: vehicleData.price,
       kmTraveled: vehicleData.kmTraveled,
+      modelYear: vehicleData.modelYear,
+      yearOfManufacture: vehicleData.yearOfManufacture,
     })
-    setModelYear(vehicleData.modelYear)
-    setYearOfManufacture(vehicleData.yearOfManufacture)
     setDescription(vehicleData.description)
   }, [token, router, reset])
 
@@ -62,64 +71,79 @@ export default function Specifications() {
       <VehicleRegistratonHeader />
       <main>
         <section className="py-6 ">
-          <div className="w-[calc(100%-34px)] px-4 mx-auto my-3 md:w-[480px]">
+          <form
+            className="w-[calc(100%-34px)] px-4 mx-auto my-3 md:w-[480px]"
+            onSubmit={handleSubmit(saveInLocalStorage)}
+          >
             <h1 className="text-3xl font-light text-center mb-6 text-zinc-400">
               Vamos começar o seu Anúncio?
             </h1>
 
             <div className="w-full md:w-96 mx-auto">
               <Input
-                text="Marca"
+                text="Marca*"
+                name="brand"
                 padding="px-0"
                 sizetext="text-lg"
                 fieldname="brand"
+                rules={{ required: 'Marca deve ser inserida' }}
                 register={register}
               />
+
+              <ErrorMessage
+                errors={errors}
+                name="brand"
+                render={({ message }) => <p>{message}</p>}
+              />
+
               <Input
-                text="Modelo"
+                text="Modelo*"
                 padding="px-0"
                 sizetext="text-lg"
                 register={register}
+                rules={{ required: 'Modelo deve ser inserido' }}
                 fieldname="model"
               />
               <div className="w-full mb-6 flex">
                 <div className="w-[calc(50%-17px)] mr-8">
                   <label className="text-lg mb-1 text-zinc-400">
-                    Ano do modelo
+                    Ano do modelo*
                   </label>
                   <input
                     type="number"
-                    value={modelYear}
                     className="w-full h-9 text-base border-b border-zinc-400 border-solid bg-transparent outline-0 focus:border-zinc-200 transition-colors"
-                    onChange={(event) => setModelYear(event.target.value)}
+                    {...register('modelYear', {
+                      required: 'Ano do modelo deve ser inserido',
+                    })}
                   />
                 </div>
                 <div className="w-[calc(50%-17px)]">
                   <label className="text-lg mb-1 text-zinc-400">
-                    Ano de fabricação
+                    Ano de fabricação*
                   </label>
                   <input
                     type="number"
-                    value={yearOfManufacture}
                     className="w-full h-9 text-base border-b border-zinc-400 border-solid bg-transparent outline-0 focus:border-zinc-200 transition-colors"
-                    onChange={(event) =>
-                      setYearOfManufacture(event.target.value)
-                    }
+                    {...register('yearOfManufacture', {
+                      required: 'Ano de fabricação deve ser inserido',
+                    })}
                   />
                 </div>
               </div>
               <Input
-                text="Versão"
+                text="Versão*"
                 padding="px-0"
                 sizetext="text-lg"
                 register={register}
+                rules={{ required: 'Versão deve ser inserido' }}
                 fieldname="version"
               />
               <Input
-                text="Cor"
+                text="Cor*"
                 padding="px-0"
                 sizetext="text-lg"
                 register={register}
+                rules={{ required: 'Cor deve ser inserida' }}
                 fieldname="color"
               />
             </div>
@@ -132,22 +156,13 @@ export default function Specifications() {
                 >
                   Voltar
                 </button>
-
-                <Link
-                  href={{
-                    pathname: '/vender-carro/informacoes',
-                  }}
-                >
-                  <button
-                    className="w-full bg-brand-primary flex-grow h-12 cursor-pointer text-lg border-none hover:bg-brand-hover transition-colors md:ml-5"
-                    onClick={saveInLocalStorage}
-                  >
-                    Continuar
-                  </button>
-                </Link>
+                <input
+                  className="w-full bg-brand-primary flex-grow h-12 cursor-pointer text-lg border-none hover:bg-brand-hover transition-colors md:ml-5"
+                  type="submit"
+                />
               </div>
             </div>
-          </div>
+          </form>
         </section>
       </main>
     </>

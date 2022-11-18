@@ -42,7 +42,6 @@ export default function Register() {
       )
 
       const data = await res.json()
-      console.log(data.url)
       setPhotoUrl(data.url)
     } catch (err) {
       console.log(err)
