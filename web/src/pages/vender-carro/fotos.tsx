@@ -12,7 +12,7 @@ interface Photos {
   publicId: string
 }
 
-interface VehicleData {
+export interface VehicleData {
   userId: string
   brand: string
   model: string
@@ -23,7 +23,7 @@ interface VehicleData {
   kmTraveled: string
   description: string
   price: string
-  photos: JSON
+  photos: Array<Photos>
 }
 
 export default function Photos() {
@@ -81,7 +81,7 @@ export default function Photos() {
   }
 
   async function saveAdVehicle() {
-    const response = await axios
+    await axios
       .post('http://localhost:3333/vehicles', {
         userId: user?.id,
         brand: vehicleData.brand,
@@ -97,15 +97,16 @@ export default function Photos() {
       })
       .catch((error) => {
         console.log(error)
-        // const status = error.response.status
+        const status = error.response.status
 
-        // if (status === 422) {
-        //   return console.log('Informações do veiculo insuficientes')
-        // }
+        if (status === 422) {
+          return console.log('Informações do veiculo insuficientes')
+        }
       })
-    console.log(response)
 
-    // router.push('/')
+    localStorage.removeItem('photos')
+    localStorage.removeItem('vehicleData')
+    router.push('/')
   }
 
   return (

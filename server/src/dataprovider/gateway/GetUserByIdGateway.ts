@@ -4,7 +4,7 @@ import { prisma } from "./../client/prisma";
 
 export class GetUserByIdGateway implements GetUserByIdBoundary {
   public async execute({ id }: GetUserByIdRequest) {
-    const user = prisma.users.findUnique({
+    const user = await prisma.users.findUnique({
       where: {
         id: id,
       },
@@ -12,6 +12,10 @@ export class GetUserByIdGateway implements GetUserByIdBoundary {
         vehicles: true,
       },
     });
+
+    if (!user) {
+      throw new Error("Usuario não existe");
+    }
 
     return user;
   }

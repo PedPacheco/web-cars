@@ -1,7 +1,6 @@
-import { Prisma } from "@prisma/client";
 import { CreateVehicleAdBoundary } from "../../core/boundary/CreateVehicleAdBoundary";
 import { CreateVehicleAdRequest } from "../../entrypoint/requests/CreateVehicleAdRequest";
-import { prisma } from "./../client/prisma";
+import { prisma } from "../client/prisma";
 
 export class CreateVehicleAdGateway implements CreateVehicleAdBoundary {
   public async execute({
@@ -17,7 +16,6 @@ export class CreateVehicleAdGateway implements CreateVehicleAdBoundary {
     price,
     photos,
   }: CreateVehicleAdRequest) {
-    const vehicleJson = photos as unknown as Prisma.JsonArray;
     const vehicleAd = await prisma.vehicles.create({
       data: {
         brand,
@@ -29,7 +27,7 @@ export class CreateVehicleAdGateway implements CreateVehicleAdBoundary {
         kmTraveled,
         description,
         price,
-        photos: vehicleJson,
+        photos: photos,
         user: { connect: { id: userId } },
       },
     });

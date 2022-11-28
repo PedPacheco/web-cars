@@ -1,6 +1,6 @@
 import { GetAllUsersUseCase } from "../../core/useCases/GetAllUsersUseCase";
 import { GetAllUsersGateway } from "../../dataprovider/gateway/GetAllUsersGateway";
-import { GetAllUsersController } from "../controllers/GetAllUsersControlller";
+import { GetAllUsersController } from "../../entrypoint/controllers/GetAllUsersControlller";
 
 export function GetAllUsersModule(): GetAllUsersController {
   const gateway = new GetAllUsersGateway();

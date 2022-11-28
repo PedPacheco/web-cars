@@ -1,6 +1,6 @@
 import { UpdateUserUseCase } from "../../core/useCases/UpdateUserUseCase";
 import { UpdateUserGateway } from "../../dataprovider/gateway/UpdateUserGateway";
-import { UpdateUserController } from "../controllers/UpdateUserController";
+import { UpdateUserController } from "../../entrypoint/controllers/UpdateUserController";
 
 export function UpdateUserModule(): UpdateUserController {
   const gateway = new UpdateUserGateway();

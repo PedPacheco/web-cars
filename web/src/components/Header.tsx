@@ -98,7 +98,7 @@ export function Header() {
                   />
                   <ListItemForModal
                     text="Meus anuncios"
-                    url="/"
+                    url="/garagem"
                     icon={
                       <SoccerBall size={18} weight="bold" className="mr-4" />
                     }

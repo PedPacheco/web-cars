@@ -9,5 +9,5 @@ export interface CreateVehicleAdRequest {
   kmTraveled: number;
   description: string;
   price: number;
-  photos: JSON;
+  photos: Array<object>;
 }
