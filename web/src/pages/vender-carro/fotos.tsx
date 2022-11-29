@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import { VehiclePhoto } from '~/components/VehiclePhoto'
 import { VehicleRegistratonHeader } from '~/components/VehicleRegistratonHeader'
 import UseAuth from '~/hooks/useAuth'
+import { HttpService } from '~/services/http.service'
+import { ToastService } from '~/services/toast.service'
 import returnPreviousPage from '~/utils/returnPreviousPage'
 
 interface Photos {
@@ -52,37 +54,37 @@ export default function Photos() {
     formData.append('cloud_name', 'dnaqaaqun')
 
     try {
-      const res = await fetch(
+      const res = await axios.post(
         'https://api.cloudinary.com/v1_1/dnaqaaqun/image/upload',
-        {
-          method: 'POST',
-          body: formData,
-        },
+        formData,
       )
 
-      const data = await res.json()
       setPhotos((photos) => [
         ...photos,
-        { url: data.url, publicId: data.public_id },
+        { url: res.data.url, publicId: res.data.public_id },
       ])
+      ToastService.success('Imagem selecionada com sucesso')
     } catch (err) {
-      console.log(err)
+      ToastService.error('Erro ao selecionar imagem')
     }
   }
 
   async function handleRemovePhoto(publicId: string) {
-    const response = await axios.post('/api/handleRemoveImage', {
-      publicId,
-    })
+    try {
+      await axios.post('/api/handleRemoveImage', {
+        publicId,
+      })
 
-    if (response.data === 'ok') {
       setPhotos(photos.filter((photo) => photo.publicId !== publicId))
+      ToastService.success('Imagem removida com sucesso')
+    } catch (error) {
+      ToastService.error('Imagem não removida')
     }
   }
 
   async function saveAdVehicle() {
-    await axios
-      .post('http://localhost:3333/vehicles', {
+    try {
+      await HttpService.post('http://localhost:3333/vehicles', {
         userId: user?.id,
         brand: vehicleData.brand,
         model: vehicleData.model,
@@ -95,14 +97,11 @@ export default function Photos() {
         price: Number(vehicleData.price),
         photos,
       })
-      .catch((error) => {
-        console.log(error)
-        const status = error.response.status
-
-        if (status === 422) {
-          return console.log('Informações do veiculo insuficientes')
-        }
-      })
+      ToastService.success('Anuncio criado com sucesso')
+    } catch (error) {
+      console.log(error)
+      ToastService.error('Informações do veiculo insuficientes')
+    }
 
     localStorage.removeItem('photos')
     localStorage.removeItem('vehicleData')

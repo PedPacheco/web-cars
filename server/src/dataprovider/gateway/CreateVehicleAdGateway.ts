@@ -25,7 +25,7 @@ export class CreateVehicleAdGateway implements CreateVehicleAdBoundary {
         version,
         color,
         kmTraveled,
-        description,
+        description: description || "",
         price,
         photos: photos,
         user: { connect: { id: userId } },

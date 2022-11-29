@@ -11,7 +11,6 @@ export const schemas = {
     color: Joi.string().required(),
     kmTraveled: Joi.number().required(),
     price: Joi.number().required(),
-    description: Joi.string().required(),
     photos: Joi.array().required(),
   }),
 };
