@@ -1,5 +1,5 @@
-import { Button } from './Button'
-import { SelectComponent } from './SelectComponent'
+import { Button } from '../Atoms/Button'
+import { SelectComponent } from '../Atoms/SelectComponent'
 
 export function HomeSearchBox() {
   return (

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { List, X } from 'phosphor-react'
 import { useState } from 'react'
 import UseAuth from '~/hooks/useAuth'
-import logoWebMotors from '../assets/logoWebMotors.png'
+import logoWebMotors from '../../assets/logoWebMotors.png'
 import { InformationUser } from './InformationsUser'
 
 export function HeaderMyGabage() {

@@ -4,10 +4,11 @@ import Router, { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { HeaderMyGabage } from '~/components/HeaderMyGabage'
-import { InformationUser } from '~/components/InformationsUser'
-import { Input } from '~/components/Input'
+import { Input } from '~/components/Atoms/Input'
+import { HeaderMyGabage } from '~/components/Molecules/HeaderMyGabage'
+import { InformationUser } from '~/components/Organisms/InformationsUser'
 import UseAuth from '~/hooks/useAuth'
+import returnPreviousPage from '~/utils/returnPreviousPage'
 
 export default function Perfil() {
   const { user } = UseAuth()
@@ -19,8 +20,9 @@ export default function Perfil() {
 
   useEffect(() => {
     if (token === '') {
-      router.push('/login')
+      returnPreviousPage()
     }
+
     reset({
       name: user?.name,
       email: user?.email,

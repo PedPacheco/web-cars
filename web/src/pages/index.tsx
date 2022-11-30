@@ -1,7 +1,7 @@
 import * as Separator from '@radix-ui/react-separator'
-import { Header } from '~/components/Header'
-import { HomeSearchBox } from '~/components/HomeSearchBox'
-import { PriceBox } from '~/components/PriceBox'
+import { Header } from '~/components/Molecules/Header'
+import { PriceBox } from '~/components/Molecules/PriceBox'
+import { HomeSearchBox } from '~/components/Organisms/HomeSearchBox'
 
 export default function Home() {
   return (

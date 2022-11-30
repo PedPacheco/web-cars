@@ -2,8 +2,8 @@ import * as Separator from '@radix-ui/react-separator'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { VehiclePhoto } from '~/components/VehiclePhoto'
-import { VehicleRegistratonHeader } from '~/components/VehicleRegistratonHeader'
+import { VehicleRegistratonHeader } from '~/components/Molecules/VehicleRegistratonHeader'
+import { VehiclePhoto } from '~/components/Organisms/VehiclePhoto'
 import UseAuth from '~/hooks/useAuth'
 import { HttpService } from '~/services/http.service'
 import { ToastService } from '~/services/toast.service'
@@ -15,6 +15,7 @@ interface Photos {
 }
 
 export interface VehicleData {
+  id: string
   userId: string
   brand: string
   model: string
@@ -26,12 +27,13 @@ export interface VehicleData {
   description: string
   price: string
   photos: Array<Photos>
+  createdAt: Date
 }
 
 export default function Photos() {
   const router = useRouter()
   const { user } = UseAuth()
-  const [photos, setPhotos] = useState<Photos[]>([])
+  const [photos, setPhotos] = useState<Photos[]>([{ url: '', publicId: '' }])
   const [vehicleData, setVehicleData] = useState({} as VehicleData)
 
   useEffect(() => {

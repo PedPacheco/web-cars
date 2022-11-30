@@ -1,8 +1,8 @@
 import { HttpService } from './http.service'
 
-const basePath = '/users'
+const basePath = '/vehicles'
 
-export const AuthService = {
+export const VehiclesService = {
   getUserById,
   register,
   getAll,

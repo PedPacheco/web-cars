@@ -5,9 +5,9 @@ import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { FacebookLogo, GoogleLogo, X } from 'phosphor-react'
 import { FormEvent, useEffect, useState } from 'react'
-import { Button } from '~/components/Button'
-import { Header } from '~/components/Header'
-import { InputLogin } from '~/components/InputLogin'
+import { Button } from '~/components/Atoms/Button'
+import { InputLogin } from '~/components/Atoms/InputLogin'
+import { Header } from '~/components/Molecules/Header'
 import UseAuth from '~/hooks/useAuth'
 
 export default function Login() {

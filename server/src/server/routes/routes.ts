@@ -6,6 +6,7 @@ import { CreateVehicleAdModule } from "../modules/CreateVehicleAdModule";
 import { GetAllUsersModule } from "../modules/GetAllUsersModule";
 import { GetAllVehiclesModule } from "../modules/GetAllVehiclesModule";
 import { GetUserByIdModule } from "../modules/GetUserByIdModule";
+import { GetUserVehiclesModule } from "../modules/GetUserVehiclesModule";
 import { UpdateUserModule } from "../modules/UpdateUserModule";
 import { schemas } from "../schemas/vehicleSchema";
 
@@ -21,3 +22,4 @@ routes.post(
   expressAdapter(CreateVehicleAdModule)
 );
 routes.get("/vehicles", expressAdapter(GetAllVehiclesModule));
+routes.get("/vehicles/:id", expressAdapter(GetUserVehiclesModule));

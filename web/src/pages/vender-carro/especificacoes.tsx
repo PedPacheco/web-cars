@@ -3,8 +3,8 @@ import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Input } from '~/components/Input'
-import { VehicleRegistratonHeader } from '~/components/VehicleRegistratonHeader'
+import { Input } from '~/components/Atoms/Input'
+import { VehicleRegistratonHeader } from '~/components/Molecules/VehicleRegistratonHeader'
 import returnPreviousPage from '~/utils/returnPreviousPage'
 
 export default function Specifications() {

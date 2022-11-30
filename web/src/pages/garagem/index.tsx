@@ -1,41 +1,47 @@
-import axios from 'axios'
-import Image from 'next/image'
+import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
-import { HeaderMyGabage } from '~/components/HeaderMyGabage'
-import { InformationUser } from '~/components/InformationsUser'
+import { HeaderMyGabage } from '~/components/Organisms/HeaderMyGabage'
+import { InformationUser } from '~/components/Organisms/InformationsUser'
+import { VehicleAdvertisement } from '~/components/Organisms/VehicleAdvertisement'
 import UseAuth from '~/hooks/useAuth'
+import { ToastService } from '~/services/toast.service'
+import { VehiclesService } from '~/services/vehicles.service'
+import returnPreviousPage from '~/utils/returnPreviousPage'
 import { VehicleData } from '../vender-carro/fotos'
-
-interface UserVehicles {
-  id: string
-  name: string
-  email: string
-  password: string
-  phone: string
-  cep: string
-  vehicles: VehicleData[]
-}
 
 export default function MyAds() {
   const { user } = UseAuth()
-  const [userVehicles, setUserVehicles] = useState<UserVehicles>()
+  const { token } = parseCookies()
+  const [userVehicles, setUserVehicles] = useState([] as VehicleData[])
 
   useEffect(() => {
     async function getVehicles() {
-      const vehicles = await axios
-        .get(`http://localhost:3333/users/${user?.id}`)
-        .then((response) => {
-          return response.data
-        })
+      try {
+        if (token === '') {
+          returnPreviousPage()
+          return
+        }
 
-      const photos = JSON.parse(userVehicles?.vehicles[0]?.photos)
-      setUserVehicles(vehicles)
+        if (!user) {
+          return
+        }
+
+        const vehicles = await VehiclesService.getUserById(user.id).then(
+          (response) => {
+            return response.data
+          },
+        )
+
+        setUserVehicles(vehicles)
+      } catch (error) {
+        console.log(error)
+        ToastService.error('Erro ao pegar seus veiculos')
+      }
     }
 
     getVehicles()
-  }, [user?.id])
+  }, [token, user])
 
-  console.log(userVehicles?.vehicles[0]?.photos)
   return (
     <div>
       <HeaderMyGabage />
@@ -44,22 +50,10 @@ export default function MyAds() {
           <InformationUser />
         </div>
 
-        <main className="w-full flex justify-start items-stretch overflow-hidden">
-          <div className="w-[calc(100%-34px)] mx-auto pb-6 lg:pb-0">
-            <div className="flex flex-col relative mb-5">
-              <div className="w-full flex flex-col items-center justify-center lg:w-[342px]">
-                <div></div>
-                <div></div>
-                <Image
-                  src={userVehicles?.vehicles[0]?.photos.id}
-                  width="full"
-                  height={240}
-                  alt="Imagem principal do veiculo"
-                />
-              </div>
-              <div></div>
-            </div>
-          </div>
+        <main className="w-full flex flex-col justify-start items-stretch overflow-hidden">
+          {userVehicles.map((vehicle, index) => (
+            <VehicleAdvertisement index={index} key={index} vehicle={vehicle} />
+          ))}
         </main>
       </div>
     </div>

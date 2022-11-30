@@ -12,8 +12,8 @@ import {
 import { useState } from 'react'
 import UseAuth from '~/hooks/useAuth'
 import perfil from '../assets/perfil.jpg'
-import { ListItem } from './ListItem'
-import { ListItemForModal } from './ListItemForModal'
+import { ListItem } from '../Atoms/ListItem'
+import { ListItemForModal } from '../Atoms/ListItemForModal'
 
 export function Header() {
   const { user, signout } = UseAuth()

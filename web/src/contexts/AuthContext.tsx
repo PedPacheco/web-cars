@@ -50,6 +50,7 @@ const AuthContext = createContext({} as AuthContextData)
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
+
   useEffect(() => {
     const auth = getAuth()
 
@@ -96,8 +97,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
 
       const { email, displayName, phoneNumber, photoURL, uid } = result.user
-      const token = await result.user.getIdToken()
 
+      const token = await result.user.getIdToken()
       const users = await AuthService.getAll()
 
       for (const user of users.data) {
@@ -177,7 +178,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       ToastService.success('Login realizado com sucesso')
       setTimeout(() => {
         history.back()
-      }, 3000)
+      }, 1000)
     } catch (error) {
       ToastService.error('Não foi possível fazer seu login')
     }
@@ -246,7 +247,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       ToastService.success('Cadastro realizado com sucesso')
       setTimeout(() => {
         Router.push('/')
-      }, 3000)
+      }, 1000)
     } catch (error) {
       ToastService.error('Algo deu errado ao fazer seu cadastro')
     }

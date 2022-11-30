@@ -7,7 +7,7 @@ import {
   User,
 } from 'phosphor-react'
 import UseAuth from '~/hooks/useAuth'
-import { ListItemForModal } from './ListItemForModal'
+import { ListItemForModal } from '../Atoms/ListItemForModal'
 
 export function InformationUser() {
   const { user, signout } = UseAuth()
@@ -45,7 +45,7 @@ export function InformationUser() {
           />
           <ListItemForModal
             text="Meus anuncios"
-            url="/"
+            url="/garagem"
             icon={<Car className="mr-5" size={24} weight="bold" />}
           />
           <ListItemForModal
