@@ -5,7 +5,7 @@ import { List, X } from 'phosphor-react'
 import { useState } from 'react'
 import UseAuth from '~/hooks/useAuth'
 import logoWebMotors from '../../assets/logoWebMotors.png'
-import { InformationUser } from './InformationsUser'
+import { InformationUser } from '../Molecules/InformationsUser'
 
 export function HeaderMyGabage() {
   const { user } = UseAuth()
@@ -61,7 +61,7 @@ export function HeaderMyGabage() {
           </div>
           <div>
             <div className="flex items-center justify-center w-9 h-9 relative mx-auto rounded-full bg-zinc-300 text-zinc-900 text-lg font-medium">
-              P
+              {user?.name[0]}
             </div>
           </div>
         </div>

@@ -3,13 +3,13 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { VehicleRegistratonHeader } from '~/components/Molecules/VehicleRegistratonHeader'
-import { VehiclePhoto } from '~/components/Organisms/VehiclePhoto'
+import { FieldAddPhoto } from '~/components/Organisms/FieldAddPhoto'
 import UseAuth from '~/hooks/useAuth'
 import { HttpService } from '~/services/http.service'
 import { ToastService } from '~/services/toast.service'
 import returnPreviousPage from '~/utils/returnPreviousPage'
 
-interface Photos {
+export interface Photos {
   url: string
   publicId: string
 }
@@ -33,7 +33,7 @@ export interface VehicleData {
 export default function Photos() {
   const router = useRouter()
   const { user } = UseAuth()
-  const [photos, setPhotos] = useState<Photos[]>([{ url: '', publicId: '' }])
+  const [photos, setPhotos] = useState<Photos[]>([])
   const [vehicleData, setVehicleData] = useState({} as VehicleData)
 
   useEffect(() => {
@@ -99,15 +99,15 @@ export default function Photos() {
         price: Number(vehicleData.price),
         photos,
       })
+
       ToastService.success('Anuncio criado com sucesso')
+      localStorage.removeItem('photos')
+      localStorage.removeItem('vehicleData')
+      router.push('/')
     } catch (error) {
       console.log(error)
       ToastService.error('Informações do veiculo insuficientes')
     }
-
-    localStorage.removeItem('photos')
-    localStorage.removeItem('vehicleData')
-    router.push('/')
   }
 
   return (
@@ -136,136 +136,11 @@ export default function Photos() {
                 <span className="w-[156px] absolute top-[147px] left-0 text-center text-sm font-semibold">
                   Foto principal
                 </span>
-                <div className="w-full flex flex-wrap justify-center overflow-hidden">
-                  <VehiclePhoto
-                    imageUrl={
-                      photos[0]
-                        ? photos[0].url
-                        : 'https://www.webmotors.com.br/vender/img/icons/vehicle-positions/icon-carro-position-default.svg'
-                    }
-                    onChange={(event) => {
-                      const file = (event.target as HTMLInputElement).files![0]
-                      if (!file) {
-                        return
-                      }
-                      handleAddPhoto(file)
-                    }}
-                    id={photos[0]?.publicId !== '' ? photos[0]?.publicId : ''}
-                    handleRemovePhoto={handleRemovePhoto}
-                  />
-                  <VehiclePhoto
-                    imageUrl={
-                      photos[1]
-                        ? photos[1].url
-                        : 'https://www.webmotors.com.br/vender/img/icons/vehicle-positions/icon-carro-position-default.svg'
-                    }
-                    onChange={(event) => {
-                      const file = (event.target as HTMLInputElement).files![0]
-                      if (!file) {
-                        return
-                      }
-                      handleAddPhoto(file)
-                    }}
-                    id={photos[1]?.publicId !== '' ? photos[1]?.publicId : ''}
-                    handleRemovePhoto={handleRemovePhoto}
-                  />
-                  <VehiclePhoto
-                    imageUrl={
-                      photos[2]
-                        ? photos[2].url
-                        : 'https://www.webmotors.com.br/vender/img/icons/vehicle-positions/icon-carro-position-default.svg'
-                    }
-                    onChange={(event) => {
-                      const file = (event.target as HTMLInputElement).files![0]
-                      if (!file) {
-                        return
-                      }
-                      handleAddPhoto(file)
-                    }}
-                    id={photos[2]?.publicId !== '' ? photos[2]?.publicId : ''}
-                    handleRemovePhoto={handleRemovePhoto}
-                  />
-                  <VehiclePhoto
-                    imageUrl={
-                      photos[3]
-                        ? photos[3].url
-                        : 'https://www.webmotors.com.br/vender/img/icons/vehicle-positions/icon-carro-position-default.svg'
-                    }
-                    onChange={(event) => {
-                      const file = (event.target as HTMLInputElement).files![0]
-                      if (!file) {
-                        return
-                      }
-                      handleAddPhoto(file)
-                    }}
-                    id={photos[3]?.publicId !== '' ? photos[3]?.publicId : ''}
-                    handleRemovePhoto={handleRemovePhoto}
-                  />
-                  <VehiclePhoto
-                    imageUrl={
-                      photos[4]
-                        ? photos[4].url
-                        : 'https://www.webmotors.com.br/vender/img/icons/vehicle-positions/icon-carro-position-default.svg'
-                    }
-                    onChange={(event) => {
-                      const file = (event.target as HTMLInputElement).files![0]
-                      if (!file) {
-                        return
-                      }
-                      handleAddPhoto(file)
-                    }}
-                    id={photos[4]?.publicId !== '' ? photos[4]?.publicId : ''}
-                    handleRemovePhoto={handleRemovePhoto}
-                  />
-                  <VehiclePhoto
-                    imageUrl={
-                      photos[5]
-                        ? photos[5].url
-                        : 'https://www.webmotors.com.br/vender/img/icons/vehicle-positions/icon-carro-position-default.svg'
-                    }
-                    onChange={(event) => {
-                      const file = (event.target as HTMLInputElement).files![0]
-                      if (!file) {
-                        return
-                      }
-                      handleAddPhoto(file)
-                    }}
-                    id={photos[5]?.publicId !== '' ? photos[5]?.publicId : ''}
-                    handleRemovePhoto={handleRemovePhoto}
-                  />
-                  <VehiclePhoto
-                    imageUrl={
-                      photos[6]
-                        ? photos[6].url
-                        : 'https://www.webmotors.com.br/vender/img/icons/vehicle-positions/icon-carro-position-default.svg'
-                    }
-                    onChange={(event) => {
-                      const file = (event.target as HTMLInputElement).files![0]
-                      if (!file) {
-                        return
-                      }
-                      handleAddPhoto(file)
-                    }}
-                    id={photos[6]?.publicId !== '' ? photos[6]?.publicId : ''}
-                    handleRemovePhoto={handleRemovePhoto}
-                  />
-                  <VehiclePhoto
-                    imageUrl={
-                      photos[7]
-                        ? photos[7].url
-                        : 'https://www.webmotors.com.br/vender/img/icons/vehicle-positions/icon-carro-position-default.svg'
-                    }
-                    onChange={(event) => {
-                      const file = (event.target as HTMLInputElement).files![0]
-                      if (!file) {
-                        return
-                      }
-                      handleAddPhoto(file)
-                    }}
-                    id={photos[7]?.publicId !== '' ? photos[7]?.publicId : ''}
-                    handleRemovePhoto={handleRemovePhoto}
-                  />
-                </div>
+                <FieldAddPhoto
+                  photos={photos}
+                  handleAddPhoto={handleAddPhoto}
+                  handleRemovePhoto={handleRemovePhoto}
+                />
               </div>
             </div>
           </div>

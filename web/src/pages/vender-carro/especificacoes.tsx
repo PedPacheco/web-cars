@@ -27,7 +27,6 @@ export default function Specifications() {
   const yearOfManufacture = watch('yearOfManufacture')
   const modelYear = watch('modelYear')
 
-  console.log(errors)
   function saveInLocalStorage() {
     localStorage.setItem(
       'vehicleData',

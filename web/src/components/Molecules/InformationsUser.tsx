@@ -19,7 +19,7 @@ export function InformationUser() {
           <div className="my-4 relative">
             <div className="w-16 h-16 lg:w- relative mx-auto rounded-full border-4 border-solid border-zinc-600">
               <div className="flex items-center justify-center w-full h-full text-4xl bg-zinc-300 text-zinc-600 rounded-full border-4 border-solid border-zinc-800">
-                P
+                {user?.name[0]}
               </div>
             </div>
           </div>

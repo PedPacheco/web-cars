@@ -1,8 +1,8 @@
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
-import { HeaderMyGabage } from '~/components/Organisms/HeaderMyGabage'
-import { InformationUser } from '~/components/Organisms/InformationsUser'
-import { VehicleAdvertisement } from '~/components/Organisms/VehicleAdvertisement'
+import { HeaderMyGabage } from '~/components/Molecules/HeaderMyGabage'
+import { InformationUser } from '~/components/Molecules/InformationsUser'
+import { UserVehicleAdvertisement } from '~/components/Molecules/UserVehicleAdvertisement'
 import UseAuth from '~/hooks/useAuth'
 import { ToastService } from '~/services/toast.service'
 import { VehiclesService } from '~/services/vehicles.service'
@@ -51,8 +51,8 @@ export default function MyAds() {
         </div>
 
         <main className="w-full flex flex-col justify-start items-stretch overflow-hidden">
-          {userVehicles.map((vehicle, index) => (
-            <VehicleAdvertisement index={index} key={index} vehicle={vehicle} />
+          {userVehicles.map((vehicle) => (
+            <UserVehicleAdvertisement key={vehicle.id} vehicle={vehicle} />
           ))}
         </main>
       </div>

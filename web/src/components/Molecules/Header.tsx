@@ -11,7 +11,7 @@ import {
 } from 'phosphor-react'
 import { useState } from 'react'
 import UseAuth from '~/hooks/useAuth'
-import perfil from '../assets/perfil.jpg'
+import perfil from '../../assets/perfil.jpg'
 import { ListItem } from '../Atoms/ListItem'
 import { ListItemForModal } from '../Atoms/ListItemForModal'
 
@@ -34,18 +34,12 @@ export function Header() {
         </Link>
 
         <ul
-          className={`flex items-center justify-between w-[70%] md:w-[500px] md:flex-row pl-3 `}
+          className={`flex items-center justify-between w-[70%] md:w-[380px] md:flex-row pl-3 `}
         >
           <ListItem
             url="/"
             text="Home"
             icon={<House size={24} weight="bold" />}
-          />
-
-          <ListItem
-            url="/"
-            text="Carros à venda"
-            icon={<Car size={24} weight="bold" />}
           />
 
           <ListItem

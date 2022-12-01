@@ -21,6 +21,8 @@ export class CreateVehicleAdController {
       photos,
     } = reqBody;
 
+    console.log(description);
+
     return this.useCase.execute({
       userId,
       brand,

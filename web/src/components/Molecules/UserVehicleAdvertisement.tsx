@@ -1,15 +1,13 @@
 import { VehicleData } from '~/pages/vender-carro/fotos'
 import { Button } from '../Atoms/Button'
 
-interface VehicleAdvertisementProps {
+interface UserVehicleAdvertisementProps {
   vehicle: VehicleData
-  index: number
 }
 
-export function VehicleAdvertisement({
-  index,
+export function UserVehicleAdvertisement({
   vehicle,
-}: VehicleAdvertisementProps) {
+}: UserVehicleAdvertisementProps) {
   return (
     <div
       className="w-[calc(100%-34px)] mx-auto mt-5 pb-6 lg:pb-0"
@@ -18,9 +16,8 @@ export function VehicleAdvertisement({
       <div className="flex flex-col mb-5 lg:flex-row">
         <div className="w-full flex flex-col items-center justify-center lg:w-[342px]">
           <picture className="w-full relative">
-            <div className="w-full h-full absolute bg-gradient-to-l from-zinc-900"></div>
             <img
-              src={vehicle.photos[index]?.url}
+              src={vehicle.photos[0]?.url}
               className="w-full h-60 rounded-t overflow-hidden object-cover"
               alt="Imagem principal do veiculo"
             />
