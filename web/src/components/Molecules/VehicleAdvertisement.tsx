@@ -8,14 +8,14 @@ interface VehicleAdvertisementProps {
 
 export function VehicleAdvertisement({ vehicle }: VehicleAdvertisementProps) {
   return (
-    <Link href="">
-      <a className="w-[calc(100%-30px)] m-4 px-4 lg:m-0 lg:max-w-[33%]">
-        <div className="flex flex-col justify-center rounded py-4 mb-4 mt-6 shadow bg-zinc-800 lg:mx-1">
-          <picture className="px-4">
+    <Link href={`/veiculo/${vehicle.id}`}>
+      <a className="w-[calc(100%-30px)] m-4 px-4 lg:m-0 lg:max-w-[33%] ">
+        <div className="flex flex-col justify-center rounded py-4 mb-4 mt-6 shadow bg-zinc-800 lg:mx-1 hover:shadow-2xl">
+          <picture className="px-4 ">
             <img
               src={vehicle.photos[0]?.url}
               alt="Imagem do veiculo"
-              className="w-full h-[calc((100vw/0.8)*0.5625)] mb-2 max-w-full object-cover lg:h-[calc((100vw/3)*0.5625)]"
+              className="w-full h-[calc((100vw/0.8)*0.5625)] mb-2 max-w-full object-cover lg:h-[calc((100vw/3)*0.5625)] hover:shadow-2xl"
             />
           </picture>
 

@@ -26,11 +26,11 @@ export default function MyAds() {
           return
         }
 
-        const vehicles = await VehiclesService.getUserById(user.id).then(
-          (response) => {
-            return response.data
-          },
-        )
+        const vehicles = await VehiclesService.getUserVehiclesById(
+          user.id,
+        ).then((response) => {
+          return response.data
+        })
 
         setUserVehicles(vehicles)
       } catch (error) {

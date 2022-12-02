@@ -7,6 +7,7 @@ import { GetAllUsersModule } from "../modules/GetAllUsersModule";
 import { GetAllVehiclesModule } from "../modules/GetAllVehiclesModule";
 import { GetUserByIdModule } from "../modules/GetUserByIdModule";
 import { GetUserVehiclesModule } from "../modules/GetUserVehiclesModule";
+import { GetVehicleByIdModule } from "../modules/GetVehicleByIdModule";
 import { UpdateUserModule } from "../modules/UpdateUserModule";
 import { schemas } from "../schemas/vehicleSchema";
 
@@ -16,10 +17,11 @@ routes.post("/users", expressAdapter(CreateUserModule));
 routes.put("/users/:id", expressAdapter(UpdateUserModule));
 routes.get("/users", expressAdapter(GetAllUsersModule));
 routes.get("/users/:id", expressAdapter(GetUserByIdModule));
+routes.get("/users/vehicles/:id", expressAdapter(GetUserVehiclesModule));
 routes.post(
   "/vehicles",
   Validate(schemas.vehicle),
   expressAdapter(CreateVehicleAdModule)
 );
 routes.get("/vehicles", expressAdapter(GetAllVehiclesModule));
-routes.get("/vehicles/:id", expressAdapter(GetUserVehiclesModule));
+routes.get("/vehicles/:id", expressAdapter(GetVehicleByIdModule));

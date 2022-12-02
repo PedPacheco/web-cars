@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { VehicleData } from '~/pages/vender-carro/fotos'
 import { Button } from '../Atoms/Button'
 
@@ -8,13 +9,22 @@ interface UserVehicleAdvertisementProps {
 export function UserVehicleAdvertisement({
   vehicle,
 }: UserVehicleAdvertisementProps) {
+  const [day, setDay] = useState<number>(0)
+  const [month, setMonth] = useState<number>(0)
+  const [year, setYear] = useState<number>(0)
+
+  useEffect(() => {
+    setMonth(new Date(vehicle.createdAt).getMonth() + 1)
+    setDay(new Date(vehicle.createdAt).getDate() + 1)
+    setYear(new Date(vehicle.createdAt).getFullYear())
+  }, [vehicle.createdAt])
   return (
     <div
       className="w-[calc(100%-34px)] mx-auto mt-5 pb-6 lg:pb-0"
       key={vehicle.id}
     >
       <div className="flex flex-col mb-5 lg:flex-row">
-        <div className="w-full flex flex-col items-center justify-center lg:w-[342px]">
+        <div className="w-full flex flex-col items-center justify-center lg:w-[368px]">
           <picture className="w-full relative">
             <img
               src={vehicle.photos[0]?.url}
@@ -35,7 +45,7 @@ export function UserVehicleAdvertisement({
             </div>
             <div className="flex flex-col gap-2">
               <p className="h-5 w-full font-medium text-xs text-zinc-400 text-right self-center">
-                17/05/2022
+                {day}/{month}/{year}
               </p>
               <p className="text-zinc-100 font-semibold lg:mr-4 lg:text-xl">
                 R$ {vehicle.price}

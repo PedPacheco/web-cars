@@ -5,5 +5,4 @@ export interface User {
   password: string;
   phone: string;
   cep: string;
-  vehicles: object[];
 }

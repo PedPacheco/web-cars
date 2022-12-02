@@ -21,8 +21,8 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="w-full p-4">
-        <div className="flex justify-center flex-wrap mx-[-16px]">
+      <main className="w-full p-4 flex items-center justify-center">
+        <div className="flex justify-center flex-wrap mx-[-16px] lg:max-w-[83%]">
           {vehicles.map((vehicle) => (
             <VehicleAdvertisement key={vehicle.id} vehicle={vehicle} />
           ))}

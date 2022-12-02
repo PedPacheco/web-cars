@@ -1,6 +1,6 @@
-import { GetUserByIdRequest } from "../../entrypoint/requests/GetUserByIdRequest";
-import { User } from "../models/Vehicles";
+import { GetByIdRequest } from "../../entrypoint/requests/GetByIdRequest";
+import { User } from "../models/User";
 
 export interface GetUserByIdBoundary {
-  execute: (id: GetUserByIdRequest) => Promise<User>;
+  execute: (id: GetByIdRequest) => Promise<User>;
 }

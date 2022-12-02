@@ -1,15 +1,12 @@
 import { GetUserByIdBoundary } from "../../core/boundary/GetUserByIdBoundary";
-import { GetUserByIdRequest } from "../../entrypoint/requests/GetUserByIdRequest";
+import { GetByIdRequest } from "../../entrypoint/requests/GetByIdRequest";
 import { prisma } from "./../client/prisma";
 
 export class GetUserByIdGateway implements GetUserByIdBoundary {
-  public async execute({ id }: GetUserByIdRequest) {
+  public async execute({ id }: GetByIdRequest) {
     const user = await prisma.users.findUnique({
       where: {
         id: id,
-      },
-      include: {
-        vehicles: true,
       },
     });
 

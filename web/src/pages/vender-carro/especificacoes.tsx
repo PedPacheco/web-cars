@@ -104,7 +104,7 @@ export default function Specifications() {
                 fieldname="model"
               />
               <div className="w-full mb-6 flex">
-                <div className="w-[calc(50%-17px)] mr-8">
+                <div className="w-[calc(50%-17px)] mr-8 flex flex-col justify-between">
                   <label className="text-lg mb-1 text-zinc-400">
                     Ano do modelo*
                   </label>
@@ -116,7 +116,7 @@ export default function Specifications() {
                     })}
                   />
                 </div>
-                <div className="w-[calc(50%-17px)]">
+                <div className="w-[calc(50%-17px)] flex flex-col justify-between">
                   <label className="text-lg mb-1 text-zinc-400">
                     Ano de fabricação*
                   </label>

@@ -3,7 +3,8 @@ import { HttpService } from './http.service'
 const basePath = '/vehicles'
 
 export const VehiclesService = {
-  getUserById,
+  getUserVehiclesById,
+  getVehicleById,
   register,
   getAll,
 }
@@ -16,6 +17,10 @@ async function getAll() {
   return HttpService.get(`${basePath}`)
 }
 
-async function getUserById(id: string) {
+async function getUserVehiclesById(id: string) {
+  return HttpService.get(`/users${basePath}/${id}`)
+}
+
+async function getVehicleById(id: string | string[] | undefined) {
   return HttpService.get(`${basePath}/${id}`)
 }

@@ -1,8 +1,8 @@
 import { GetByIdRequest } from "../../entrypoint/requests/GetByIdRequest";
-import { GetUserByIdBoundary } from "../boundary/GetUserByIdBoundary";
+import { GetVehicleByIdBoundary } from "../boundary/GetVehicleByIdBoundary";
 
-export class GetUserByIdUseCase {
-  public constructor(private readonly boundary: GetUserByIdBoundary) {
+export class GetVehicleByIdUseCase {
+  public constructor(private readonly boundary: GetVehicleByIdBoundary) {
     this.boundary = boundary;
   }
   execute({ id }: GetByIdRequest) {
