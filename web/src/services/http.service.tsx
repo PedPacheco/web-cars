@@ -13,7 +13,7 @@ const HttpService = axios.create({
 // esse é o interceptor responsável por pegar a resposta da API e verificar em qual toast ela se enquadra e em caso de sucesso já tetorna o response.data
 HttpService.interceptors.response.use((response: any) => {
   // eslint-disable-next-line @typescript-eslint/no-extra-semi
-  ;(response.data.messages || []).forEach(
+  ;(response.data?.messages || []).forEach(
     (resultMessage: { message: string; type: any }) => {
       if (resultMessage.message) {
         resultMessage.message = resultMessage.message.replaceAll('P0001: ', '')
@@ -42,7 +42,7 @@ HttpService.interceptors.response.use((response: any) => {
       }
     },
   )
-  if (response.data.redirectRoute) {
+  if (response.data?.redirectRoute) {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     setTimeout(() => {}, 3000)
   }

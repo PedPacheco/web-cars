@@ -24,4 +24,4 @@ routes.post(
   expressAdapter(CreateVehicleAdModule)
 );
 routes.get("/vehicles", expressAdapter(GetAllVehiclesModule));
-routes.get("/vehicles/:id", expressAdapter(GetVehicleByIdModule));
+routes.get("/vehicles/:userId/:id", expressAdapter(GetVehicleByIdModule));

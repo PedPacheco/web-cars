@@ -1,6 +1,9 @@
 import { Vehicles } from "@prisma/client";
-import { GetByIdRequest } from "../../entrypoint/requests/GetByIdRequest";
+import { User } from "../models/User";
+import { GetVehicleByIdRequest } from "./../../entrypoint/requests/GetVehiclesByIdRequest";
 
 export interface GetVehicleByIdBoundary {
-  execute: (id: GetByIdRequest) => Promise<Vehicles>;
+  execute: (
+    id: GetVehicleByIdRequest
+  ) => Promise<(User & { vehicles: Vehicles[] }) | null>;
 }

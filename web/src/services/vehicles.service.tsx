@@ -21,6 +21,9 @@ async function getUserVehiclesById(id: string) {
   return HttpService.get(`/users${basePath}/${id}`)
 }
 
-async function getVehicleById(id: string | string[] | undefined) {
-  return HttpService.get(`${basePath}/${id}`)
+async function getVehicleById(
+  userId: string | string[] | undefined,
+  id: string | string[] | undefined,
+) {
+  return HttpService.get(`${basePath}/${userId}/${id}`)
 }

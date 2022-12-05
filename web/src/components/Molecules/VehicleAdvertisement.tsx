@@ -8,7 +8,7 @@ interface VehicleAdvertisementProps {
 
 export function VehicleAdvertisement({ vehicle }: VehicleAdvertisementProps) {
   return (
-    <Link href={`/veiculo/${vehicle.id}`}>
+    <Link href={`/veiculo/${vehicle.userId}/${vehicle.id}`}>
       <a className="w-[calc(100%-30px)] m-4 px-4 lg:m-0 lg:max-w-[33%] ">
         <div className="flex flex-col justify-center rounded py-4 mb-4 mt-6 shadow bg-zinc-800 lg:mx-1 hover:shadow-2xl">
           <picture className="px-4 ">
@@ -43,7 +43,7 @@ export function VehicleAdvertisement({ vehicle }: VehicleAdvertisementProps) {
               <div className="w-full text-right pr-4 ">
                 <span className="flex justify-end items-center">
                   <Gauge size={16} weight="bold" className="mr-2" />
-                  {vehicle.kmTraveled}KM
+                  {vehicle.kmTraveled} Km
                 </span>
               </div>
             </div>

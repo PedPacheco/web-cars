@@ -1,18 +1,21 @@
 import { GetVehicleByIdBoundary } from "../../core/boundary/GetVehicleByIdBoundary";
-import { GetByIdRequest } from "../../entrypoint/requests/GetByIdRequest";
+import { GetVehicleByIdRequest } from "./../../entrypoint/requests/GetVehiclesByIdRequest";
 import { prisma } from "./../client/prisma";
 
 export class GetVehicleByIdGateway implements GetVehicleByIdBoundary {
-  public async execute({ id }: GetByIdRequest) {
-    const vehicle = await prisma.vehicles.findUnique({
+  public async execute({ userId, id }: GetVehicleByIdRequest) {
+    const vehicle = await prisma.users.findUnique({
       where: {
-        id: id,
+        id: userId,
+      },
+      include: {
+        vehicles: {
+          where: {
+            id: id,
+          },
+        },
       },
     });
-
-    if (!vehicle) {
-      throw new Error("Veiculo não existe");
-    }
 
     return vehicle;
   }

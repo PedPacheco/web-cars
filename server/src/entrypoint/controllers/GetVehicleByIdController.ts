@@ -6,8 +6,8 @@ export class GetVehicleByIdController {
   }
 
   async handle(reqParams: any, reqQuery: any, reqBody: any) {
-    const { id } = reqParams;
+    const { id, userId } = reqParams;
 
-    return await this.useCase.execute({ id });
+    return await this.useCase.execute({ userId, id });
   }
 }
