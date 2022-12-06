@@ -1,23 +1,13 @@
-import { useEffect, useState } from 'react'
 import { Header } from '~/components/Molecules/Header'
 import { VehicleAdvertisement } from '~/components/Molecules/VehicleAdvertisement'
 import { VehiclesService } from '~/services/vehicles.service'
 import { VehicleData } from './vender-carro/fotos'
 
-export default function Home() {
-  const [vehicles, setVehicles] = useState([] as VehicleData[])
+interface HomeProps {
+  vehicles: VehicleData[]
+}
 
-  useEffect(() => {
-    async function getVehicles() {
-      const vehicles = await VehiclesService.getAll().then((response) => {
-        return response.data
-      })
-
-      setVehicles(vehicles)
-    }
-    getVehicles()
-  }, [])
-
+export default function Home({ vehicles }: HomeProps) {
   return (
     <>
       <Header />
@@ -30,4 +20,16 @@ export default function Home() {
       </main>
     </>
   )
+}
+
+export async function getStaticProps() {
+  const vehicles = await VehiclesService.getAll().then((response) => {
+    return response.data
+  })
+
+  return {
+    props: {
+      vehicles,
+    },
+  }
 }

@@ -70,11 +70,11 @@ export default function VehiclePage() {
       <Header />
 
       <main>
-        <section className="w-full px-4 mx-auto pb-6 pt-20 lg:pt-6 lg:max-w-5xl">
-          <div className="w-full px-4 mx-auto lg:max-w-5xl">
-            <div className="flex py-4 justify-center">
-              <div className="w-full px-4 max-w-full md:max-w-[80%]">
-                <h3 className="text-2xl">
+        <section className="w-full px-4 mx-auto pb-6 pt-20 lg:pt-6 lg:max-w-6xl">
+          <div className="w-full px-4 mx-auto lg:max-w-6xl">
+            <div className="flex py-4 justify-center lg:justify-start">
+              <div className="w-full lg:px-6 max-w-full">
+                <h3 className="text-2xl px-4 lg:px-6">
                   <span className="font-bold">
                     {vehicle?.brand.toUpperCase()}{' '}
                   </span>
@@ -83,8 +83,8 @@ export default function VehiclePage() {
               </div>
             </div>
             <div className="flex flex-wrap justify-center">
-              <div className="w-full px-4 max-w-full md:max-w-[60%]">
-                <div className="w-full mb-2">
+              <div className="w-full mb-4  max-w-full lg:max-w-[56%] lg:px-4">
+                <div className="w-full mb-2 px-4">
                   <Swiper
                     pagination={{
                       type: 'progressbar',
@@ -100,7 +100,7 @@ export default function VehiclePage() {
                     ))}
                   </Swiper>
                 </div>
-                <div className="flex flex-wrap justify-center">
+                <div className="flex px-4 flex-wrap justify-center">
                   <IconForSpecifications
                     icon={
                       <Calendar size={20} weight="bold" className="inline" />
@@ -118,11 +118,11 @@ export default function VehiclePage() {
                     text={`${vehicle?.color}`}
                   />
                 </div>
-                <div className="w-full max-w-full rounded-lg p-4 mt-4 shadow-lg bg-zinc-800">
+                <div className="w-full max-w-full rounded-lg p-4 mt-4 shadow-lg border border-zinc-500 border-solid bg-zinc-800">
                   <p className="font-bold text-lg mb-4">Descrição</p>
                   <p>{vehicle?.description}</p>
                 </div>
-                <div className="w-full max-w-full rounded-lg p-4 mt-4 shadow-lg bg-zinc-800">
+                <div className="w-full max-w-full rounded-lg p-4 mt-4 shadow-lg border border-zinc-500 border-solid bg-zinc-800">
                   <h2 className="text-xs text-zinc-400">Sobre o vendedor</h2>
                   <div className="pt-2 pb-6">
                     <h2 className="text-2xl text-zinc-300">{user.name}</h2>
@@ -137,7 +137,7 @@ export default function VehiclePage() {
                   </div>
                 </div>
               </div>
-              <SendEmail />
+              <SendEmail vehicle={vehicle} />
             </div>
           </div>
         </section>

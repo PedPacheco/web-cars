@@ -8,8 +8,9 @@ import { GetAllVehiclesModule } from "../modules/GetAllVehiclesModule";
 import { GetUserByIdModule } from "../modules/GetUserByIdModule";
 import { GetUserVehiclesModule } from "../modules/GetUserVehiclesModule";
 import { GetVehicleByIdModule } from "../modules/GetVehicleByIdModule";
+import { SendMailModule } from "../modules/SendMailModule";
 import { UpdateUserModule } from "../modules/UpdateUserModule";
-import { schemas } from "../schemas/vehicleSchema";
+import { schemas } from "../schemas/Schemas";
 
 export const routes = Router();
 
@@ -25,3 +26,4 @@ routes.post(
 );
 routes.get("/vehicles", expressAdapter(GetAllVehiclesModule));
 routes.get("/vehicles/:userId/:id", expressAdapter(GetVehicleByIdModule));
+routes.post("/email", Validate(schemas.email), expressAdapter(SendMailModule));

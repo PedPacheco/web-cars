@@ -14,4 +14,12 @@ export const schemas = {
     photos: Joi.array(),
     description: Joi.string(),
   }),
+
+  email: Joi.object().keys({
+    fromEmailUser: Joi.string().required(),
+    toEmailUser: Joi.string().required(),
+    name: Joi.string().required(),
+    phone: Joi.string().required(),
+    message: Joi.string().required(),
+  }),
 };

@@ -131,6 +131,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       nookies.set(undefined, 'token', token, {
         maxAge: 30 * 24 * 60 * 60,
       })
+      ToastService.success('Login realizado com sucesso')
     } catch (error) {
       ToastService.error('Não foi possível fazer seu login')
     }
@@ -176,9 +177,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       })
 
       ToastService.success('Login realizado com sucesso')
-      setTimeout(() => {
-        history.back()
-      }, 1000)
     } catch (error) {
       ToastService.error('Não foi possível fazer seu login')
     }
@@ -245,9 +243,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       })
 
       ToastService.success('Cadastro realizado com sucesso')
-      setTimeout(() => {
-        Router.push('/')
-      }, 1000)
     } catch (error) {
       ToastService.error('Algo deu errado ao fazer seu cadastro')
     }
@@ -256,7 +251,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function signout() {
     try {
       setLoading(true)
-      Router.push('/')
 
       await firebase
         .auth()
@@ -268,8 +262,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
       nookies.set(undefined, 'token', '', {
         maxAge: 30 * 24 * 60 * 60,
       })
-    } finally {
-      setLoading(false)
+      localStorage.removeItem('vehicleData')
+      localStorage.removeItem('photos')
+
+      ToastService.success('Você foi deslogado com sucesso')
+      setTimeout(() => {
+        setLoading(false)
+        Router.push('/')
+      }, 1000)
+    } catch (error) {
+      ToastService.error('Algo deu errado ao tenta se deslogar')
     }
   }
 
