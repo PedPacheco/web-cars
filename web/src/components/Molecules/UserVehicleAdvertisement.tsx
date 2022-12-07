@@ -18,6 +18,7 @@ export function UserVehicleAdvertisement({
     setDay(new Date(vehicle.createdAt).getDate() + 1)
     setYear(new Date(vehicle.createdAt).getFullYear())
   }, [vehicle.createdAt])
+
   return (
     <div
       className="w-[calc(100%-34px)] mx-auto mt-5 pb-6 lg:pb-0"

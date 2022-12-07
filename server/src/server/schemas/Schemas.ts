@@ -18,8 +18,30 @@ export const schemas = {
   email: Joi.object().keys({
     fromEmailUser: Joi.string().required(),
     toEmailUser: Joi.string().required(),
-    name: Joi.string().required(),
-    phone: Joi.string().required(),
-    message: Joi.string().required(),
+    fromName: Joi.string()
+      .required()
+      .error((errors: any) => {
+        errors.forEach((err: any) => {
+          err.message = "Você deve ser inserir seu nome";
+        });
+        return errors;
+      }),
+    toName: Joi.string().required(),
+    phone: Joi.string()
+      .required()
+      .error((errors: any) => {
+        errors.forEach((err: any) => {
+          err.message = "O telefone deve ser inserido";
+        });
+        return errors;
+      }),
+    message: Joi.string()
+      .required()
+      .error((errors: any) => {
+        errors.forEach((err: any) => {
+          err.message = "Você deve inserir uma mensagem pro dono do veículo";
+        });
+        return errors;
+      }),
   }),
 };

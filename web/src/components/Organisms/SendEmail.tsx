@@ -1,21 +1,48 @@
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import UseAuth from '~/hooks/useAuth'
+import { User } from '~/pages/veiculo/[userId]/[id]'
 import { VehicleData } from '~/pages/vender-carro/fotos'
+import { emailService } from '~/services/email.service'
+import { ToastService } from '~/services/toast.service'
 import { InputLogin } from '../Atoms/InputLogin'
+import { Loading } from '../Atoms/Loading'
 
 interface SendEmailProps {
   vehicle: VehicleData | undefined
+  vehicleOwner: User
 }
 
-export function SendEmail({ vehicle }: SendEmailProps) {
+export function SendEmail({ vehicle, vehicleOwner }: SendEmailProps) {
   const { user } = UseAuth()
-  const [name, setName] = useState<string | undefined>(user?.name)
+  const [name, setName] = useState<string | undefined>('')
   const [message, setMessage] = useState<string>(
     'Olá, tenho interesse no veículo. Por favor entre em contato.',
   )
+  const [loading, setLoading] = useState(false)
   const [phone, setPhone] = useState<string>('')
 
-  async function sendEmail() {}
+  async function sendEmail(event: FormEvent) {
+    console.log('entrei')
+    event.preventDefault()
+
+    try {
+      setLoading(true)
+      await emailService.sendEmail({
+        fromEmailUser: user?.email,
+        toEmailUser: vehicleOwner.email,
+        fromName: name,
+        toName: vehicleOwner.name,
+        phone,
+        message,
+      })
+
+      setLoading(false)
+      ToastService.success('Sua mensagem foi enviada para o dono do veículo')
+    } catch (error: any) {
+      setLoading(false)
+      ToastService.error(error.response.data)
+    }
+  }
 
   return (
     <div className="w-full p-4 h-fit border border-zinc-500 border-solid rounded-lg lg:w-[442px] bg-zinc-800">
@@ -27,7 +54,7 @@ export function SendEmail({ vehicle }: SendEmailProps) {
           Envie uma mensagem para o vendedor
         </strong>
 
-        <form onSubmit={sendEmail}>
+        <form onSubmit={(event) => sendEmail(event)}>
           <InputLogin
             text="Nome*"
             value={name}
@@ -54,13 +81,14 @@ export function SendEmail({ vehicle }: SendEmailProps) {
               </label>
             </div>
           </div>
+          <button
+            type="submit"
+            disabled={!!(!name || !phone || !message)}
+            className="w-full h-14 px-2 rounded-lg flex justify-center items-center text-center mt-4 bg-brand-primary enabled:hover:bg-brand-hover transition-colors disabled:opacity-70 disabled:transition-none"
+          >
+            {loading ? <Loading /> : 'Enviar mensagem'}
+          </button>
         </form>
-        <button
-          type="submit"
-          className="w-full h-14 px-2 rounded-lg text-center mt-4 bg-brand-primary disabled:opacity-5"
-        >
-          Enviar Mensagem
-        </button>
       </div>
     </div>
   )

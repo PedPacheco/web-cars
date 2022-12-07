@@ -1,5 +1,7 @@
+import { ReactNode } from 'react'
+
 interface IconForSpecificationsProps {
-  icon: any
+  icon: ReactNode
   text: string
 }
 

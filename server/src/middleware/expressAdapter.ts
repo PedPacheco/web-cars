@@ -11,8 +11,8 @@ export const expressAdapter = (moduleFn: any) => {
       const response = await controller.handle(req.params, req.query, req.body);
 
       return res.json(response);
-    } catch (error) {
-      res.status(500).json({ message: "Something is wrong!" });
+    } catch (error: any) {
+      res.status(400).send(error.message);
       next(error);
     }
   };

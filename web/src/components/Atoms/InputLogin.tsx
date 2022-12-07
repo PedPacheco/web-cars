@@ -10,7 +10,7 @@ export function InputLogin({ text, ...props }: InputLoginProps) {
       <div className="relative rounded-lg h-14 mt-3 lg:h-12">
         <input
           {...props}
-          className="w-full h-10 py-3 pr-11 pl-4 rounded-lg border-2 border-zinc-400 bg-zinc-800"
+          className="w-full h-12 py-2 pr-11 pl-4 rounded-lg border-2 border-zinc-400 bg-zinc-800"
         />
         <label
           htmlFor={text}

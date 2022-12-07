@@ -134,6 +134,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       ToastService.success('Login realizado com sucesso')
     } catch (error) {
       ToastService.error('Não foi possível fazer seu login')
+      setLoading(false)
     }
   }
 
@@ -179,6 +180,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       ToastService.success('Login realizado com sucesso')
     } catch (error) {
       ToastService.error('Não foi possível fazer seu login')
+      setLoading(false)
     }
   }
 
@@ -245,6 +247,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       ToastService.success('Cadastro realizado com sucesso')
     } catch (error) {
       ToastService.error('Algo deu errado ao fazer seu cadastro')
+      setLoading(false)
     }
   }
 

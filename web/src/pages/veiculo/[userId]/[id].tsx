@@ -8,13 +8,13 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { IconForSpecifications } from '~/components/Atoms/IconForSpecifications'
 import { Header } from '~/components/Molecules/Header'
-import { IconForSpecifications } from '~/components/Molecules/IconForSpecifications'
-import { SendEmail } from '~/components/Molecules/SendEmail'
+import { SendEmail } from '~/components/Organisms/SendEmail'
 import { VehiclesService } from '~/services/vehicles.service'
 import { VehicleData } from '../../vender-carro/fotos'
 
-interface User {
+export interface User {
   id: string
   name: string
   email: string
@@ -38,7 +38,6 @@ export default function VehiclePage() {
           return response.data
         },
       )
-
       if (!user) {
         return
       }
@@ -137,7 +136,7 @@ export default function VehiclePage() {
                   </div>
                 </div>
               </div>
-              <SendEmail vehicle={vehicle} />
+              <SendEmail vehicle={vehicle} vehicleOwner={user} />
             </div>
           </div>
         </section>

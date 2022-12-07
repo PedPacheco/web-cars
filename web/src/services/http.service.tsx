@@ -14,7 +14,7 @@ const HttpService = axios.create({
 HttpService.interceptors.response.use((response: any) => {
   // eslint-disable-next-line @typescript-eslint/no-extra-semi
   ;(response.data?.messages || []).forEach(
-    (resultMessage: { message: string; type: any }) => {
+    (resultMessage: { message: string; type: unknown }) => {
       if (resultMessage.message) {
         resultMessage.message = resultMessage.message.replaceAll('P0001: ', '')
         // const t = i18n.t;
