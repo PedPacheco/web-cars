@@ -7,6 +7,7 @@ export const VehiclesService = {
   getVehicleById,
   register,
   getAll,
+  deleteVehicle,
 }
 
 async function register(data: any) {
@@ -26,4 +27,8 @@ async function getVehicleById(
   id: string | string[] | undefined,
 ) {
   return HttpService.get(`${basePath}/${userId}/${id}`)
+}
+
+async function deleteVehicle(id: string) {
+  return HttpService.delete(`${basePath}/${id}`)
 }

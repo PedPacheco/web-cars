@@ -48,7 +48,7 @@ export function SendEmail({ vehicle, vehicleOwner }: SendEmailProps) {
     <div className="w-full p-4 h-fit border border-zinc-500 border-solid rounded-lg lg:w-[442px] bg-zinc-800">
       <div className="flex flex-col justify-center mt-4 text-left">
         <strong className="text-4xl font-medium tracking-tighter text-brand-primary">
-          R$ {vehicle?.price}
+          R$ {Number(vehicle?.price).toFixed(2)}
         </strong>
         <strong className="mt-3 mb-2 text-xs text-zinc-300">
           Envie uma mensagem para o vendedor

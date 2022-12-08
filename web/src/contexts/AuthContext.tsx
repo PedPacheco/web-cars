@@ -245,6 +245,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       })
 
       ToastService.success('Cadastro realizado com sucesso')
+      setLoading(false)
+      Router.push('/')
     } catch (error) {
       ToastService.error('Algo deu errado ao fazer seu cadastro')
       setLoading(false)

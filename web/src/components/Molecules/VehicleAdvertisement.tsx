@@ -9,9 +9,9 @@ interface VehicleAdvertisementProps {
 export function VehicleAdvertisement({ vehicle }: VehicleAdvertisementProps) {
   return (
     <Link href={`/veiculo/${vehicle.userId}/${vehicle.id}`}>
-      <a className="w-[calc(100%-30px)] m-4 px-4 lg:m-0 lg:max-w-[33%] ">
+      <a className="w-[calc(100%-30px)] m-4 px-4 lg:m-0 lg:min-w-[500px] lg:w-[33%] ">
         <div className="flex flex-col justify-center rounded py-4 mb-4 mt-6 shadow bg-zinc-800 lg:mx-1 hover:shadow-2xl">
-          <picture className="px-4 ">
+          <picture className="px-4">
             <img
               src={vehicle.photos[0]?.url}
               alt="Imagem do veiculo"
@@ -30,7 +30,7 @@ export function VehicleAdvertisement({ vehicle }: VehicleAdvertisementProps) {
             <div className="w-full my-2 max-w-full flex flex-col">
               <span>Á vista</span>
               <span className="text-xl font-bold text-brand-primary">
-                R$ {vehicle.price}
+                R$ {Number(vehicle.price).toFixed(2)}
               </span>
             </div>
             <div className="flex flex-start py-2 text-xs">

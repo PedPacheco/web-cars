@@ -3,6 +3,7 @@ import { expressAdapter } from "../../middleware/expressAdapter";
 import { Validate } from "../../middleware/validate";
 import { CreateUserModule } from "../modules/CreateUserModule";
 import { CreateVehicleAdModule } from "../modules/CreateVehicleAdModule";
+import { DeleteVehicleAdModule } from "../modules/DeleteVehicleAdModule";
 import { GetAllUsersModule } from "../modules/GetAllUsersModule";
 import { GetAllVehiclesModule } from "../modules/GetAllVehiclesModule";
 import { GetUserByIdModule } from "../modules/GetUserByIdModule";
@@ -24,6 +25,7 @@ routes.post(
   Validate(schemas.vehicle),
   expressAdapter(CreateVehicleAdModule)
 );
+routes.delete("/vehicles/:id", expressAdapter(DeleteVehicleAdModule));
 routes.get("/vehicles", expressAdapter(GetAllVehiclesModule));
 routes.get("/vehicles/:userId/:id", expressAdapter(GetVehicleByIdModule));
 routes.post("/email", Validate(schemas.email), expressAdapter(SendMailModule));

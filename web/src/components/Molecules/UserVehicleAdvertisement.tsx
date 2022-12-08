@@ -1,5 +1,8 @@
+import Router from 'next/router'
 import { useEffect, useState } from 'react'
 import { VehicleData } from '~/pages/vender-carro/fotos'
+import { ToastService } from '~/services/toast.service'
+import { VehiclesService } from '~/services/vehicles.service'
 import { Button } from '../Atoms/Button'
 
 interface UserVehicleAdvertisementProps {
@@ -18,6 +21,17 @@ export function UserVehicleAdvertisement({
     setDay(new Date(vehicle.createdAt).getDate() + 1)
     setYear(new Date(vehicle.createdAt).getFullYear())
   }, [vehicle.createdAt])
+
+  async function deleteAd(id: string) {
+    try {
+      await VehiclesService.deleteVehicle(id)
+
+      ToastService.success('Anúncio deletado com sucesso')
+      Router.reload()
+    } catch (error) {
+      ToastService.error('Algo deu errado ao deletar esse anúncio')
+    }
+  }
 
   return (
     <div
@@ -54,7 +68,12 @@ export function UserVehicleAdvertisement({
             </div>
           </div>
           <div className="flex items-center justify-end h-full mt-5 lg:mt-0">
-            <Button lgwidth="lg:max-w-[160px]">Excluir</Button>
+            <Button
+              onClick={() => deleteAd(vehicle.id)}
+              lgwidth="lg:max-w-[160px]"
+            >
+              Excluir
+            </Button>
           </div>
         </div>
       </div>

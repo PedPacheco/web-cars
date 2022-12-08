@@ -34,7 +34,7 @@ model Vehicles {
   color             String
   kmTraveled        Int
   description       String
-  price             Int
+  price             Decimal  @db.Decimal(10, 2)
   photos            Json
   createdAt         DateTime @default(now()) @db.Date()
 }

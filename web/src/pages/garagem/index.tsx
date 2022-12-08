@@ -34,7 +34,6 @@ export default function MyAds() {
 
         setUserVehicles(vehicles)
       } catch (error) {
-        console.log(error)
         ToastService.error('Erro ao pegar seus veiculos')
       }
     }
